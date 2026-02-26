@@ -1,0 +1,48 @@
+{
+    "vendors": [
+        {
+            "id": 1,
+            "name": "VendorOne",
+            "phone": "1212121213"
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "name": "Apples",
+            "price": 100.0,
+            "vendor_id": 1
+        }
+    ],
+    "inventory": [
+        {
+            "product_id": 1,
+            "quantity": 5
+        }
+    ],
+    "purchases": [
+        {
+            "product_id": 1,
+            "vendor_id": 1,
+            "quantity": 2
+        },
+        {
+            "product_id": 1,
+            "vendor_id": 1,
+            "quantity": 5
+        }
+    ],
+    "sales": [
+        {
+            "product_id": 1,
+            "quantity": 2,
+            "selling_price": 400.0
+        }
+    ],
+    "account": [
+        {
+            "balance": 1100.0,
+            "initialized": 1
+        }
+    ]
+}
