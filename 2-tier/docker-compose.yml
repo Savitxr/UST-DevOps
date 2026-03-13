@@ -14,7 +14,8 @@ services:
       - DATA_SOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     build:
@@ -27,6 +28,11 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   db_data:
