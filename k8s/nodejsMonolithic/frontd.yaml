@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejsappd
+  labels:
+    app: nodejsappd
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodejsfront
+  template:
+    metadata:
+      name: nodejsfront
+      labels:
+        app: nodejsfront
+    spec:
+      containers:
+        - name: frontendcont
+          image: savitxr/frontend:2
+          ports:
+            - containerPort: 80

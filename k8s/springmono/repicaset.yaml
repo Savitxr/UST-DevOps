@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: monors
+  labels:
+    app: monors
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: monopod
+  template:
+    metadata:
+      name: monopod
+      labels:
+        app: monopod
+    spec:
+      containers:
+        - name: monocont
+          image: cazzzzz/mono-withstage
+          ports:
+            - containerPort: 8080
+

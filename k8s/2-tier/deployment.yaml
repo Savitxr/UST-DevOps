@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 2-tier-deployment
+  labels:
+    app: 2-tier-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: 2-tier-deployment
+  template:
+    metadata:
+      name: 2-tier-app-pod
+      labels:
+        app: 2-tier-app-pod
+    spec:
+      containers:
+        - name: 2tierappcont
+          image: savitxr/2-tier-app:1
+          ports:
+            - containerPort: 8080

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejsappd-back
+  labels:
+    app: nodejsappd-back
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejsback
+  template:
+    metadata:
+      name: nodejsback
+      labels:
+        app: nodejsback
+    spec:
+      containers:
+        - name: backendcont
+          image: savitxr/backend:1
+          ports:
+            - containerPort: 80
+          env:
+            - name: PORT
+              value: "3000"
+            - name: REDIS_HOST
+              value: "localhost"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: MYSQL_HOST
+              value: "localhost"
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_USER
+              value: "admin"
+            - name: MYSQL_PASSWORD
+              value: "admin123"
+            - name: MYSQL_DATABASE
+              value: "schooldb"

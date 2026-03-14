@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-demod
+  labels:
+    app: spring-demod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spring-demo
+  template:
+    metadata:
+      name: spring-demo
+      labels:
+        app: spring-demo
+    spec:
+      containers:
+        - name: springcont
+          image: savitxr/springdemo-configmap
+          envFrom:
+            - configMapRef:
+                name: configmap-spring
+            - secretRef:
+                name: spring-secret
+          ports:
+            - containerPort: 8080

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monod
+  labels:
+    app: monod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: monopod
+  template:
+    metadata:
+      name: monopod
+      labels:
+        app: monopod
+    spec:
+      containers:
+        - name: monocont
+          image: savitxr/mono-withstage:5
+          ports:
+            - containerPort: 8080
+
