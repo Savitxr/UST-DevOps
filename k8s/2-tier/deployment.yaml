@@ -8,7 +8,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: 2-tier-deployment
+      app: 2-tier-app-pod
   template:
     metadata:
       name: 2-tier-app-pod
@@ -20,3 +20,12 @@ spec:
           image: savitxr/2-tier-app:1
           ports:
             - containerPort: 8080
+          env:
+          - name: DATA_SOURCE_URL
+            value: "jdbc:mysql://db-svc:3306/jb_db"
+          - name: DATA_SOURCE_USERNAME
+            value: "appuser"
+          - name: DATA_SOURCE_PASSWORD
+            value: "password"
+          - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+            value: "update"
