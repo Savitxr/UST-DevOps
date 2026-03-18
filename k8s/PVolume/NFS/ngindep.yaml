@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ngindep
+  name: ngindep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ngindep
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: ngindep
+    spec:
+      containers:
+      - image: busybox
+        name: nginx
+        volumeMounts:
+        - name: myvol
+          mountPath: /data
+        resources: {}
+      volumes:
+      - name: myvol
+        persistentVolumeClaim:
+          claimName: nfspvc
+status: {}
