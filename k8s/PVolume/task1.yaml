@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: demo-pv1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  storageClassName: ""
+  hostPath:
+    path: mnt/data
+    type: DirectoryOrCreate
+  persistentVolumeReclaimPolicy: Retain

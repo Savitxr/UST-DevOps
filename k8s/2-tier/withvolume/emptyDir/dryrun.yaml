@@ -1,0 +1,17 @@
+#kubectl run appod --image=nginx --restart=never --dry-run=client -o yaml > dryrun.yaml
+#ran the above cmd for this yaml
+#simple run command cannot hold that many args if the pod has multi containers
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: appod
+  name: appod
+spec:
+  containers:
+  - image: nginx
+    name: appod
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
