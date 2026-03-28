@@ -192,7 +192,7 @@ kubectl get pods -o wide
 
 ---
 
-# 🟣 TASK 4: Node Affinity (Main Demo Scenario)
+# 🟣 TASK 4: Node Affinity
 
 ## 🎯 Goal
 
