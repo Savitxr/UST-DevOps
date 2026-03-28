@@ -1,14 +1,20 @@
-# 🧪 Kubernetes DaemonSet Hands-on Lab Guide (Task-Based)
+# 🧪 Kubernetes DaemonSet Hands-on Lab Guide (Task-Based + Commands & YAML)
 
-This guide is designed to help you **follow the demo conceptually** without focusing on YAML. It emphasizes **what to do, why you're doing it, and how to verify it**.
+This guide helps you **follow the demo conceptually** and **execute it step-by-step** with minimal YAML and clear commands.
 
 ---
 
 # 📌 Prerequisites
 
 * A running Kubernetes cluster
-* kubectl access configured
-* At least 2 nodes (to observe behavior clearly)
+* `kubectl` configured
+* At least 2 nodes
+
+Check cluster:
+
+```bash
+kubectl get nodes -o wide
+```
 
 ---
 
@@ -29,14 +35,43 @@ Understand that a DaemonSet creates **one pod per node**
 
 ## 🧪 What to Do
 
-* Deploy a simple DaemonSet (any lightweight container)
-* List all pods
-* List all nodes
+* Deploy a simple DaemonSet
+* List all pods and nodes
+
+## 📄 YAML (basic-ds.yaml)
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: basic-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: ds-demo
+  template:
+    metadata:
+      labels:
+        app: ds-demo
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["sh", "-c", "while true; do echo Running on $(hostname); sleep 10; done"]
+```
+
+## 💻 Commands
+
+```bash
+kubectl apply -f basic-ds.yaml
+kubectl get pods -o wide
+kubectl get nodes
+```
 
 ## ✅ Verification
 
 * Number of pods = number of nodes
-* Each pod is running on a different node
+* Each pod is on a different node
 
 ## 💡 Key Insight
 
@@ -44,7 +79,7 @@ Understand that a DaemonSet creates **one pod per node**
 
 ---
 
-# 🟡 TASK 2: Logging Use Case (Fluent Bit Concept)
+# 🟡 TASK 2: Logging Use Case (Fluent Bit)
 
 ## 🎯 Goal
 
@@ -52,22 +87,60 @@ Understand why logging requires DaemonSets
 
 ## 🧪 What to Do
 
-* Deploy a logging agent DaemonSet (Fluent Bit or similar)
-* Enter one of the pods
-* Explore log directories inside the container
+* Deploy Fluent Bit DaemonSet
+* Exec into a pod and inspect logs
+
+## 📄 YAML (fluentbit.yaml)
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentbit
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: fluentbit
+  template:
+    metadata:
+      labels:
+        app: fluentbit
+    spec:
+      containers:
+      - name: fluentbit
+        image: cr.fluentbit.io/fluent/fluent-bit:latest
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log
+```
+
+## 💻 Commands
+
+```bash
+kubectl apply -f fluentbit.yaml
+kubectl get pods -n kube-system -o wide
+kubectl get pods -n kube-system
+kubectl exec -it <fluentbit-pod> -n kube-system -- sh
+ls /var/log/containers
+```
 
 ## ✅ Verification
 
-* You can see log files from that node
-* Each node has its own logging pod
+* Log files from that node are visible
+* One Fluent Bit pod per node
 
 ## 💡 Key Insight
 
-👉 Logs are node-specific → so logging must run on every node
+👉 Logs are node-specific → need one agent per node
 
 ---
 
-# 🔵 TASK 3: Monitoring Use Case (Node Exporter Concept)
+# 🔵 TASK 3: Monitoring Use Case (Node Exporter)
 
 ## 🎯 Goal
 
@@ -75,8 +148,39 @@ Understand node-level monitoring
 
 ## 🧪 What to Do
 
-* Deploy a monitoring agent DaemonSet
-* Check that pods are running on all nodes
+* Deploy Node Exporter DaemonSet
+* Verify pods across nodes
+
+## 📄 YAML (node-exporter.yaml)
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-exporter
+spec:
+  selector:
+    matchLabels:
+      app: node-exporter
+  template:
+    metadata:
+      labels:
+        app: node-exporter
+    spec:
+      hostPID: true
+      containers:
+      - name: node-exporter
+        image: prom/node-exporter
+        ports:
+        - containerPort: 9100
+```
+
+## 💻 Commands
+
+```bash
+kubectl apply -f node-exporter.yaml
+kubectl get pods -o wide
+```
 
 ## ✅ Verification
 
@@ -84,7 +188,7 @@ Understand node-level monitoring
 
 ## 💡 Key Insight
 
-👉 Metrics like CPU/memory are node-specific
+👉 Metrics are node-specific
 
 ---
 
@@ -94,98 +198,212 @@ Understand node-level monitoring
 
 Control **where DaemonSet pods run**
 
-## 🧪 What to Do
+---
 
-### Step 1: Label a node
+## Step 1: Label a node
 
-* Add a label (e.g., disktype=ssd) to only one node
+## 💻 Commands
 
-### Step 2: Deploy DaemonSet WITHOUT affinity
-
-* Observe pods running on all nodes
-
-### Step 3: Add REQUIRED nodeAffinity
-
-* Update DaemonSet to target only labeled nodes
-
-### Step 4: Add label to another node
-
-* Observe scheduling change
-
-### Step 5: Change to PREFERRED affinity
-
-* Observe behavior again
+```bash
+kubectl get nodes
+kubectl label nodes <node-name> disktype=ssd
+```
 
 ---
 
-## ✅ Verification
+## Step 2: Deploy WITHOUT affinity
 
-### Without affinity
+## 💻 Commands
 
-* Pods run on all nodes
+```bash
+kubectl get pods -o wide
+```
 
-### With REQUIRED affinity
-
-* Pods run ONLY on labeled nodes
-
-### After adding label
-
-* New pod appears on newly labeled node
-
-### With PREFERRED affinity
-
-* Pods run on all nodes
-* But preference is given to labeled nodes
+👉 Observe pods on all nodes
 
 ---
+
+## Step 3: REQUIRED nodeAffinity
+
+## 📄 YAML (affinity-required.yaml)
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: affinity-required-ds
+spec:
+  selector:
+    matchLabels:
+      app: affinity-demo
+  template:
+    metadata:
+      labels:
+        app: affinity-demo
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: disktype
+                operator: In
+                values:
+                - ssd
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["sh", "-c", "sleep 3600"]
+```
+
+## 💻 Commands
+
+```bash
+kubectl apply -f affinity-required.yaml
+kubectl get pods -o wide
+```
+
+👉 Pods only on labeled nodes
+
+---
+
+## Step 4: Add label to another node
+
+## 💻 Commands
+
+```bash
+kubectl label nodes <another-node> disktype=ssd
+kubectl get pods -o wide
+```
+
+👉 New pod appears automatically
+
+---
+
+## Step 5: PREFERRED affinity
+
+## 📄 YAML (affinity-preferred.yaml)
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: affinity-preferred-ds
+spec:
+  selector:
+    matchLabels:
+      app: affinity-demo
+  template:
+    metadata:
+      labels:
+        app: affinity-demo
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: disktype
+                operator: In
+                values:
+                - ssd
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["sh", "-c", "sleep 3600"]
+```
+
+## 💻 Commands
+
+```bash
+kubectl apply -f affinity-preferred.yaml
+kubectl get pods -o wide
+```
+
+👉 Pods run on all nodes (preference only)
+
+---
+
+## ✅ Verification Summary
+
+* Without affinity → all nodes
+* Required → only labeled nodes
+* Preferred → all nodes, but influenced
 
 ## 💡 Key Insights
 
-* DaemonSet = one pod per **eligible node**
-* REQUIRED affinity → filters nodes
-* PREFERRED affinity → influences scheduling only
+* DaemonSet = one pod per eligible node
+* Required = filter
+* Preferred = preference
 
 ---
 
-# 🔴 TASK 5: Taints & Tolerations (Optional Advanced)
+# 🔴 TASK 5: Taints & Tolerations (Optional)
 
 ## 🎯 Goal
 
-Understand how DaemonSet behaves with restricted nodes
+Run pods on restricted nodes
 
-## 🧪 What to Do
+## 📄 YAML (toleration.yaml)
 
-* Observe that some nodes (like control-plane) may not have pods
-* Add toleration to DaemonSet
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: toleration-ds
+spec:
+  selector:
+    matchLabels:
+      app: toleration-demo
+  template:
+    metadata:
+      labels:
+        app: toleration-demo
+    spec:
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["sh", "-c", "sleep 3600"]
+```
+
+## 💻 Commands
+
+```bash
+kubectl apply -f toleration.yaml
+kubectl get pods -o wide
+```
 
 ## ✅ Verification
 
-* Pod gets scheduled on previously restricted node
+* Pod appears on control-plane node
 
 ## 💡 Key Insight
 
-👉 Taints block scheduling unless tolerated
+👉 Taints block, tolerations allow
 
 ---
 
 # 🧠 Final Observations
 
-* DaemonSets are used for **infrastructure-level workloads**
-* Examples:
+* DaemonSets are for infrastructure workloads
+* Logging, monitoring, networking, security
 
-  * Logging
-  * Monitoring
-  * Networking
-  * Security
-
-👉 Key takeaway:
-
-**"DaemonSet = One Pod Per Eligible Node"**
+👉 **"DaemonSet = One Pod Per Eligible Node"**
 
 ---
 
-# 🎯 How to Think About DaemonSets
+# 🧹 Cleanup
 
-* Deployment → "Run N pods"
-* DaemonSet → "Run 1 pod per node"
-* Affinity → "Which nodes should count"
+```bash
+kubectl delete -f basic-ds.yaml
+kubectl delete -f fluentbit.yaml -n kube-system
+kubectl delete -f node-exporter.yaml
+kubectl delete -f affinity-required.yaml
+kubectl delete -f affinity-preferred.yaml
+kubectl delete -f toleration.yaml
+```
