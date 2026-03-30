@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFF | Custom Order</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .page-body{padding:2rem;max-width:620px;margin:0 auto;min-height:calc(100vh - 64px);display:flex;flex-direction:column;justify-content:center;}
+    .swatch{display:inline-flex;align-items:center;gap:0.4rem;padding:0.3rem 0.8rem;border-radius:50px;font-family:var(--mono);font-size:0.75rem;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;}
+    .swatches{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.5rem;}
+  </style>
+</head>
+<body>
+  <div class="petals-layer">
+    <span class="petal" style="color:var(--lavender)">*</span>
+    <span class="petal" style="color:var(--pink)">@</span>
+    <span class="petal" style="color:var(--mint)">o</span>
+    <span class="petal" style="color:var(--lavender)">*</span>
+    <span class="petal" style="color:var(--gold)">.</span>
+    <span class="petal" style="color:var(--pink)">@</span>
+    <span class="petal" style="color:var(--mint)">*</span>
+    <span class="petal" style="color:var(--lavender)">o</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+    <span class="petal" style="color:var(--gold)">@</span>
+    <span class="petal" style="color:var(--mint)">.</span>
+    <span class="petal" style="color:var(--lavender)">*</span>
+  </div>
+
+  <div class="page-wrap">
+    <nav class="navbar">
+      <a href="/dashboard" class="navbar-brand">** AFF</a>
+      <div class="navbar-links">
+        <a href="/product">Browse</a>
+        <a href="/customization" style="color:var(--lavender);">Customize</a>
+        <a href="/cart">Cart</a>
+        <a href="/seller">Seller</a>
+        <a href="/knowmore">About</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </nav>
+
+    <div class="page-body">
+
+      <div style="text-align:center;margin-bottom:1.8rem;animation:fadeSlideUp 0.5s ease both;">
+<pre class="ascii-art lavender" style="font-size:0.68rem;opacity:0.65;">
+  ~( @ )~   ~( * )~   ~( @ )~
+  /  |  \   /  |  \   /  |  \
+     |         |         |
+   -----     -----     -----
+</pre>
+        <div class="section-title">Design Your Bouquet</div>
+        <p class="section-sub">~ CUSTOM FLOWER ORDER ~</p>
+      </div>
+
+      <div class="glass-card" style="animation:fadeSlideUp 0.6s 0.15s ease both;">
+        <div class="ascii-divider" style="margin-bottom:1.5rem;">~ ~ ~ craft your perfect arrangement ~ ~ ~</div>
+
+        <form action="/customization/place-order" method="POST">
+
+          <div class="form-group">
+            <label>Type of Flowers</label>
+            <input type="text" name="flowerTypes" class="form-control" placeholder="e.g. Roses, Lilies, Sunflowers" required>
+            <div class="swatches" style="margin-top:0.5rem;">
+              <span class="swatch">* Rose</span>
+              <span class="swatch">@ Lily</span>
+              <span class="swatch">o Tulip</span>
+              <span class="swatch">~ Orchid</span>
+              <span class="swatch">* Daisy</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Personal Message</label>
+            <input type="text" name="message" class="form-control" placeholder="e.g. Happy Birthday! With Love..." required>
+          </div>
+
+          <div class="form-group">
+            <label>Wrap Color</label>
+            <input type="text" name="wrapColor" class="form-control" placeholder="e.g. Blush Pink, Forest Green" required>
+          </div>
+
+          <div class="form-group">
+            <label>Your Budget ($)</label>
+            <input type="number" name="totalPrice" class="form-control" placeholder="e.g. 50" min="1" required>
+          </div>
+
+          <div class="ascii-divider" style="margin:1.2rem 0;">- - ( @ ) - bloom it! - ( @ ) - -</div>
+
+          <button type="submit" class="btn btn-secondary" style="width:100%;justify-content:center;padding:0.9rem;">
+            ~~ Place Custom Order
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

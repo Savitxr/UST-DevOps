@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFF | Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body{min-height:100vh;}
+    .dashboard-body{padding:3rem 2rem;min-height:calc(100vh - 64px);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.4rem;width:100%;max-width:860px;margin-top:2rem;}
+    .nav-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem 1.5rem;text-align:center;text-decoration:none;color:var(--text);transition:all 0.35s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;}
+    .nav-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.35s;background:linear-gradient(135deg,rgba(255,105,180,0.08),rgba(199,125,255,0.08));}
+    .nav-card:hover{transform:translateY(-6px) scale(1.02);border-color:var(--pink);box-shadow:0 12px 40px rgba(255,105,180,0.2);}
+    .nav-card:hover::before{opacity:1;}
+    .nav-card-art{font-family:var(--mono);white-space:pre;font-size:0.6rem;line-height:1.2;margin-bottom:1rem;transition:color 0.3s;}
+    .nav-card:hover .nav-card-art{color:var(--pink);}
+    .nav-card-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;letter-spacing:2px;margin-bottom:0.5rem;color:var(--text);}
+    .nav-card-desc{font-size:0.78rem;color:var(--text-muted);font-family:var(--mono);}
+    .wide-card{grid-column:1/-1;max-width:420px;margin:0 auto;}
+    @media(max-width:600px){.card-grid{grid-template-columns:1fr 1fr;}}
+  </style>
+</head>
+<body>
+  <div class="petals-layer">
+    <span class="petal" style="color:var(--pink)">*</span>
+    <span class="petal" style="color:var(--lavender)">@</span>
+    <span class="petal" style="color:var(--mint)">o</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+    <span class="petal" style="color:var(--gold)">.</span>
+    <span class="petal" style="color:var(--lavender)">@</span>
+    <span class="petal" style="color:var(--mint)">*</span>
+    <span class="petal" style="color:var(--pink)">o</span>
+    <span class="petal" style="color:var(--lavender)">*</span>
+    <span class="petal" style="color:var(--gold)">@</span>
+    <span class="petal" style="color:var(--mint)">.</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+  </div>
+
+  <div class="page-wrap">
+
+    <nav class="navbar">
+      <a href="/dashboard" class="navbar-brand">** AFF</a>
+      <div class="navbar-links">
+        <a href="/product">Browse</a>
+        <a href="/customization">Customize</a>
+        <a href="/cart">Cart</a>
+        <a href="/seller">Seller</a>
+        <a href="/knowmore">About</a>
+        <a href="/auth/logout" style="color:var(--pink);">Logout</a>
+      </div>
+    </nav>
+
+    <div class="dashboard-body">
+
+      <div style="text-align:center;margin-bottom:0.5rem;animation:fadeSlideUp 0.5s ease both;">
+<pre class="ascii-art lavender" style="font-size:0.62rem;opacity:0.6;">
+       *           *           *
+      /|\         /|\         /|\
+     / | \       / | \       / | \
+    ( ( @ ) )   ( ( * ) )   ( ( @ ) )
+     \ | /       \ | /       \ | /
+      \|/         \|/         \|/
+       |           |           |
+    -------     -------     -------
+</pre>
+      </div>
+
+      <div style="animation:fadeSlideUp 0.6s 0.1s ease both;text-align:center;">
+        <div class="section-title">Hey! Welcome to AFF</div>
+        <p class="section-sub">~ ABHI'S FLOWER FUSION ~</p>
+        <div class="ascii-divider">- - - ( * ) - - - ( @ ) - - - ( * ) - - -</div>
+      </div>
+
+      <div class="card-grid" style="animation:fadeSlideUp 0.6s 0.25s ease both;">
+
+        <a href="/seller" class="nav-card">
+<pre class="nav-card-art lavender">
+   _
+  ( )
+ ((@))
+  ) (
+   |
+ -----
+</pre>
+          <div class="nav-card-title">Seller Register</div>
+          <div class="nav-card-desc">~~ List your blooms</div>
+        </a>
+
+        <a href="/product" class="nav-card">
+<pre class="nav-card-art pink">
+  * * *
+ * (o) *
+  * | *
+    |
+  -----
+</pre>
+          <div class="nav-card-title">Browse Products</div>
+          <div class="nav-card-desc">~~ Explore the garden</div>
+        </a>
+
+        <a href="/customization" class="nav-card">
+<pre class="nav-card-art mint">
+  ~( @ )~
+  /  |  \
+ /   |   \
+     |
+  -------
+</pre>
+          <div class="nav-card-title">Custom Order</div>
+          <div class="nav-card-desc">~~ Design your bouquet</div>
+        </a>
+
+        <a href="/cart" class="nav-card">
+<pre class="nav-card-art gold">
+  * @ * @ *
+  |       |
+  |  [=]  |
+   \_____/
+</pre>
+          <div class="nav-card-title">My Cart</div>
+          <div class="nav-card-desc">~~ View your picks</div>
+        </a>
+
+        <a href="/knowmore" class="nav-card wide-card">
+<pre class="nav-card-art" style="color:var(--text-muted);">
+  o--[ AFF ]--o--[ STORY ]--o--[ MISSION ]--o
+</pre>
+          <div class="nav-card-title">Know More About AFF</div>
+          <div class="nav-card-desc">~~ Our story, our garden</div>
+        </a>
+
+      </div>
+
+      <div style="margin-top:2rem;animation:fadeSlideUp 0.6s 0.5s ease both;">
+<pre class="ascii-art pink" style="font-size:0.5rem;opacity:0.3;">
+~*~*~*~*~*~  RUNNING IN DOCKER  |  MICROSERVICES POWERED  |  EC2 DEPLOYED  *~*~*~*~*~*~
+</pre>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

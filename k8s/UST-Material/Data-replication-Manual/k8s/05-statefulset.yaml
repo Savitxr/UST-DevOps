@@ -1,0 +1,110 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  serviceName: mysql-headless
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      terminationGracePeriodSeconds: 30
+      initContainers:
+        - name: generate-config
+          image: busybox:1.36
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -eu
+              cp /config/base.cnf /work/base.cnf
+              ordinal="${HOSTNAME##*-}"
+              server_id="$((100 + ordinal))"
+
+              {
+                echo "[mysqld]"
+                echo "server-id=${server_id}"
+                if [ "${ordinal}" = "0" ]; then
+                  echo "read_only=OFF"
+                  echo "super_read_only=OFF"
+                else
+                  echo "read_only=ON"
+                  echo "super_read_only=ON"
+                fi
+              } > /work/server-id.cnf
+          volumeMounts:
+            - name: config-source
+              mountPath: /config
+            - name: mysql-conf
+              mountPath: /work
+
+      containers:
+        - name: mysql
+          image: mysql:8.0.36
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+              name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-root-password
+            - name: MYSQL_REPLICATION_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-replication-user
+            - name: MYSQL_REPLICATION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-replication-password
+
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+            - name: mysql-conf
+              mountPath: /etc/mysql/conf.d
+            - name: init-scripts
+              mountPath: /docker-entrypoint-initdb.d
+
+      volumes:
+        - name: config-source
+          configMap:
+            name: mysql-config
+            items:
+              - key: base.cnf
+                path: base.cnf
+        - name: init-scripts
+          configMap:
+            name: mysql-config
+            defaultMode: 0755
+            items:
+              - key: 01-create-repl-user.sh
+                path: 01-create-repl-user.sh
+        - name: mysql-conf
+          emptyDir: {}
+
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        storageClassName: ""
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi

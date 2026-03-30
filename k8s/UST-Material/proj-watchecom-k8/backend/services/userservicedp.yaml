@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice-dp
+  labels:
+    app: userservice-dp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: userservice-dp
+  template:
+    metadata:
+      name: userservice-dp
+      labels:
+        app: userservice-dp
+    spec:
+      containers:
+      - name: userservicecontainers
+        image: cazzzzz/watches-ecom-user-service:latest
+        ports:
+        - containerPort: 8081
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: dbsecrets
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbsecrets
+              key: POSTGRES_PASSWORD
+        - name: POSTGRESS_DB
+          valueFrom:
+            secretKeyRef:
+              name: dbsecrets
+              key: POSTGRES_DB        
+          
+        - name: DATABASE_URL
+          value: "postgres://myuser:mypassword@postgres-service:5432/mydatabase"
+        
+

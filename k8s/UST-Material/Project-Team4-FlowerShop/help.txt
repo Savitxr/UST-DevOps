@@ -1,0 +1,117 @@
+mkdir flower-app && cd flower-app
+
+# Create nginx.conf
+cat > nginx.conf << 'EOF'
+worker_processes auto;
+events { worker_connections 1024; }
+http {
+    include /etc/nginx/mime.types;
+    server {
+        listen 80;
+        location / {
+            proxy_pass http://web-app:3000;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+    }
+}
+EOF
+
+# Create docker-compose.yml
+cat > docker-compose.yml << 'EOF'
+services:
+  mongodb:
+    image: mongo:7
+    container_name: flower-mongodb
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - db-net
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  auth-api:
+    image: cazzzzz/flower-auth-api:latest
+    container_name: flower-auth-api
+    environment:
+      - PORT=3001
+      - MONGODB_URI=mongodb://mongodb:27017/AFF-Docker
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - backend-net
+      - db-net
+
+  product-api:
+    image: cazzzzz/flower-product-api:latest
+    container_name: flower-product-api
+    environment:
+      - PORT=3002
+      - MONGODB_URI=mongodb://mongodb:27017/AFF-Docker
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - backend-net
+      - db-net
+
+  cart-api:
+    image: cazzzzz/flower-cart-api:latest
+    container_name: flower-cart-api
+    environment:
+      - PORT=3003
+      - MONGODB_URI=mongodb://mongodb:27017/AFF-Docker
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - backend-net
+      - db-net
+
+  web-app:
+    image: cazzzzz/flower-web-app:latest
+    container_name: flower-web-app
+    environment:
+      - PORT=3000
+      - AUTH_API_URL=http://auth-api:3001
+      - PRODUCT_API_URL=http://product-api:3002
+      - CART_API_URL=http://cart-api:3003
+    depends_on:
+      - auth-api
+      - product-api
+      - cart-api
+    networks:
+      - frontend-net
+      - backend-net
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: flower-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web-app
+    networks:
+      - frontend-net
+
+volumes:
+  mongo-data:
+
+networks:
+  frontend-net:
+  backend-net:
+  db-net:
+EOF
+
+# Run everything
+docker compose up -d
+
+# Seed sample flowers
+sleep 30
+docker exec flower-product-api wget -qO- http://localhost:3002/api/seed

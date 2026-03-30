@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop | AFF</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/dashboard" class="navbar-brand">AFF</a>
+      <ul class="navbar-nav">
+        <li><a href="/product">Shop</a></li>
+        <li><a href="/customization">Customize</a></li>
+        <li><a href="/cart">Cart</a></li>
+        <li><a href="/seller">Sell</a></li>
+        <li><a href="/knowmore">About</a></li>
+        <li><a href="/auth/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-section">
+    <div class="container">
+      <h2 class="section-title">Shop Flowers</h2>
+      
+      <% if (success_msg && success_msg.length > 0) { %>
+        <div class="alert alert-success"><%= success_msg %></div>
+      <% } %>
+      <% if (error_msg && error_msg.length > 0) { %>
+        <div class="alert alert-error"><%= error_msg %></div>
+      <% } %>
+      
+      <% if (products && products.length > 0) { %>
+        <div class="grid grid-3">
+          <% products.forEach(function(product) { %>
+            <div class="product-card">
+              <h3 class="product-name"><%= product.name %></h3>
+              <p class="product-price">$<%= product.price.toFixed(2) %></p>
+              <p class="product-desc"><%= product.description || 'Fresh quality flowers' %></p>
+              <form action="/cart/add" method="POST" class="product-actions">
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                <input type="number" name="quantity" value="1" min="1" max="99">
+                <button type="submit" class="btn btn-primary">Add</button>
+              </form>
+            </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          <h3>No Products Available</h3>
+          <p>Check back soon for new arrivals</p>
+        </div>
+      <% } %>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>AFF — Product microservice via product-api:3002</p>
+    </div>
+  </footer>
+</body>
+</html>

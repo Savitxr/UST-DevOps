@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFF | Thank You!</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:2rem;}
+    .ty-wrap{max-width:520px;width:100%;text-align:center;animation:fadeSlideUp 0.7s ease both;}
+    @keyframes bloom {
+      0%  { transform: scale(0.5) rotate(-20deg); opacity: 0; }
+      60% { transform: scale(1.1) rotate(5deg);  opacity: 1; }
+      100%{ transform: scale(1)   rotate(0deg);  opacity: 1; }
+    }
+    .bloom-art { animation: bloom 0.9s 0.2s cubic-bezier(0.34,1.56,0.64,1) both; display:inline-block; }
+    .confetti-bar { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 3px; opacity: 0.5; }
+  </style>
+</head>
+<body>
+  <div class="petals-layer">
+    <span class="petal" style="color:var(--pink)">*</span>
+    <span class="petal" style="color:var(--lavender)">@</span>
+    <span class="petal" style="color:var(--mint)">o</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+    <span class="petal" style="color:var(--gold)">.</span>
+    <span class="petal" style="color:var(--lavender)">@</span>
+    <span class="petal" style="color:var(--mint)">*</span>
+    <span class="petal" style="color:var(--pink)">o</span>
+    <span class="petal" style="color:var(--lavender)">*</span>
+    <span class="petal" style="color:var(--gold)">@</span>
+    <span class="petal" style="color:var(--mint)">.</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+  </div>
+
+  <div class="page-wrap" style="width:100%;display:flex;justify-content:center;align-items:center;min-height:100vh;">
+    <div class="ty-wrap">
+
+      <div class="bloom-art">
+<pre class="ascii-art pink" style="font-size:1rem;line-height:1.15;opacity:0.9;text-shadow:0 0 20px rgba(255,105,180,0.5);">
+      * * *
+    * * @ * *
+  * *   |   * *
+    *   |   *
+        |
+      -----
+</pre>
+      </div>
+
+      <div style="margin:1.5rem 0 0.5rem;">
+        <div class="confetti-bar">* ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ *</div>
+      </div>
+
+      <div class="section-title" style="font-size:clamp(1.8rem,5vw,2.8rem);">Thank You!</div>
+      <p class="section-sub" style="margin-top:0.4rem;">~ ORDER PLACED SUCCESSFULLY ~</p>
+
+      <div class="glass-card" style="margin-top:2rem;padding:2rem;">
+        <div class="ascii-divider" style="margin-bottom:1.2rem;">~ ~ ~ your blooms are on the way ~ ~ ~</div>
+        <p style="color:var(--text-muted);font-size:0.92rem;line-height:1.8;">
+          Your order has been received and is being prepared with care.
+          Our growers are hand-picking the freshest flowers just for you.
+        </p>
+<pre class="ascii-art mint" style="font-size:0.6rem;opacity:0.5;margin:1.2rem 0;text-align:center;">
+  [Order] ---> [Grower] ---> [Prepare] ---> [Deliver] ---> [You!]
+     *             @             *               @             *
+</pre>
+        <div class="ascii-divider" style="margin-bottom:1.5rem;">- - ( * ) - - ( @ ) - - ( * ) - -</div>
+
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="/product" class="btn btn-secondary">~~ Browse More</a>
+          <a href="/dashboard" class="btn btn-ghost">* Dashboard</a>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem;">
+        <div class="confetti-bar">* ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ *</div>
+      </div>
+
+<pre class="ascii-art gold" style="font-size:0.52rem;opacity:0.35;margin-top:1rem;">
+~~ AFF | Abhi's Flower Fusion | Thank you for blooming with us ~~
+</pre>
+
+    </div>
+  </div>
+</body>
+</html>

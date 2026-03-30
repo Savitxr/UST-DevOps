@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFF &mdash; Abhi's Flower Fusion</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .hero{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:100vh;padding:2rem;text-align:center;}
+    .orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:drift 12s ease-in-out infinite;}
+    .orb-1{width:420px;height:420px;background:rgba(199,125,255,0.07);top:-100px;left:-100px;}
+    .orb-2{width:320px;height:320px;background:rgba(255,105,180,0.06);bottom:-80px;right:-80px;animation-delay:4s;}
+    .orb-3{width:260px;height:260px;background:rgba(6,214,160,0.05);top:50%;left:60%;animation-delay:8s;}
+    @keyframes drift{0%,100%{transform:translate(0,0);}33%{transform:translate(30px,-20px);}66%{transform:translate(-20px,30px);}}
+    .vtag{position:fixed;bottom:1.5rem;right:1.5rem;font-family:var(--mono);font-size:0.65rem;color:rgba(168,197,160,0.28);letter-spacing:2px;z-index:10;}
+    .stagger-1{animation:fadeSlideUp 0.5s ease both;}
+    .stagger-2{animation:fadeSlideUp 0.6s 0.15s ease both;}
+    .stagger-3{animation:fadeSlideUp 0.6s 0.3s ease both;}
+    .stagger-4{animation:fadeSlideUp 0.6s 0.45s ease both;}
+    .stagger-5{animation:fadeSlideUp 0.6s 0.6s ease both;}
+  </style>
+</head>
+<body>
+  <div class="petals-layer">
+    <span class="petal" style="color:var(--pink)">*</span>
+    <span class="petal" style="color:var(--lavender)">@</span>
+    <span class="petal" style="color:var(--mint)">o</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+    <span class="petal" style="color:var(--gold)">.</span>
+    <span class="petal" style="color:var(--lavender)">@</span>
+    <span class="petal" style="color:var(--mint)">*</span>
+    <span class="petal" style="color:var(--pink)">o</span>
+    <span class="petal" style="color:var(--lavender)">*</span>
+    <span class="petal" style="color:var(--gold)">@</span>
+    <span class="petal" style="color:var(--mint)">.</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+  </div>
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+
+  <div class="page-wrap">
+    <div class="hero">
+
+      <div class="stagger-1">
+<pre class="ascii-art lavender" style="font-size:0.75rem;opacity:0.7;text-shadow:0 0 14px rgba(199,125,255,0.35);">
+    .-~~~-.       .-~~~-.       .-~~~-.
+   /  * *  \     /  * *  \     /  * *  \
+  |  * @ *  |   |  * @ *  |   |  * @ *  |
+   \  * *  /     \  * *  /     \  * *  /
+    `~---~'       `~---~'       `~---~'
+       |             |             |
+     -----         -----         -----
+</pre>
+      </div>
+
+      <div class="stagger-2">
+        <div class="section-title" style="font-size:clamp(2rem,7vw,4rem);letter-spacing:8px;">* AFF *</div>
+        <div class="section-title" style="font-size:clamp(0.9rem,2.5vw,1.4rem);margin-top:0.4rem;opacity:0.85;">
+          Abhi's Flower Fusion
+        </div>
+      </div>
+
+      <div class="stagger-3" style="margin:1.5rem 0 2rem;">
+        <p class="section-sub">~ WHERE EVERY PETAL TELLS A STORY ~</p>
+        <div class="ascii-divider">- - - ( * ) - - - ( @ ) - - - ( * ) - - -</div>
+<pre class="ascii-art pink" style="font-size:0.58rem;margin-top:0.9rem;opacity:0.45;">
+  \  |  /     \  |  /     \  |  /     \  |  /     \  |  /
+ --( * )--   --( @ )--   --( * )--   --( @ )--   --( * )--
+  /  |  \     /  |  \     /  |  \     /  |  \     /  |  \
+</pre>
+      </div>
+
+      <div class="stagger-4" style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;">
+        <a href="/auth/login"  class="btn btn-primary"  style="font-size:1.05rem;padding:1rem 2.8rem;">** Login</a>
+        <a href="/auth/signup" class="btn btn-secondary" style="font-size:1.05rem;padding:1rem 2.8rem;">~~ Sign Up</a>
+      </div>
+
+      <div class="stagger-5" style="margin-top:2.5rem;">
+<pre class="ascii-art mint" style="font-size:0.52rem;opacity:0.3;">
+~*~*~*~  FRESHLY BLOOMED  |  DOCKER POWERED  |  MICROSERVICES ARCHITECTURE  *~*~*~*~
+</pre>
+      </div>
+
+    </div>
+  </div>
+  <div class="vtag">AFF v1.0 | DOCKER EDITION</div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFF | Cart</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .page-body{padding:2rem;max-width:860px;margin:0 auto;}
+    .total-bar{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;background:rgba(255,105,180,0.07);border:1px solid var(--border);border-radius:12px;margin:1.5rem 0;}
+    .empty-cart{text-align:center;padding:4rem 2rem;}
+  </style>
+</head>
+<body>
+  <div class="petals-layer">
+    <span class="petal" style="color:var(--gold)">*</span>
+    <span class="petal" style="color:var(--pink)">@</span>
+    <span class="petal" style="color:var(--lavender)">o</span>
+    <span class="petal" style="color:var(--gold)">*</span>
+    <span class="petal" style="color:var(--pink)">.</span>
+    <span class="petal" style="color:var(--mint)">@</span>
+    <span class="petal" style="color:var(--gold)">*</span>
+    <span class="petal" style="color:var(--pink)">o</span>
+    <span class="petal" style="color:var(--lavender)">*</span>
+    <span class="petal" style="color:var(--gold)">@</span>
+    <span class="petal" style="color:var(--mint)">.</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+  </div>
+
+  <div class="page-wrap">
+    <nav class="navbar">
+      <a href="/dashboard" class="navbar-brand">** AFF</a>
+      <div class="navbar-links">
+        <a href="/product">Browse</a>
+        <a href="/customization">Customize</a>
+        <a href="/cart" style="color:var(--gold);">Cart</a>
+        <a href="/seller">Seller</a>
+        <a href="/knowmore">About</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </nav>
+
+    <div class="page-body">
+
+      <div style="text-align:center;margin:2rem 0 1rem;animation:fadeSlideUp 0.5s ease both;">
+<pre class="ascii-art gold" style="font-size:0.65rem;opacity:0.6;">
+    * @ * @ *
+    |       |
+    |  [=]  |
+     \_____/
+</pre>
+        <div class="section-title">Your Bouquet</div>
+        <p class="section-sub">~ ITEMS IN YOUR CART ~</p>
+      </div>
+
+      <% if (success_msg && success_msg.length > 0) { %>
+        <div class="alert alert-success"><%= success_msg %></div>
+      <% } %>
+      <% if (error_msg && error_msg.length > 0) { %>
+        <div class="alert alert-danger"><%= error_msg %></div>
+      <% } %>
+
+      <% if (cartDetails && cartDetails.length > 0) { %>
+        <div class="glass-card" style="animation:fadeSlideUp 0.5s 0.1s ease both;padding:0.5rem;">
+          <table class="flower-table">
+            <thead>
+              <tr>
+                <th style="padding-left:1.5rem;">Product</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% var total = 0; cartDetails.forEach(function(item){ total += item.product.price * item.quantity; %>
+                <tr>
+                  <td style="padding-left:1.5rem;">
+                    <span style="font-family:var(--mono);font-size:0.65rem;color:var(--pink);margin-right:0.5rem;">(*)</span>
+                    <%= item.product.name %>
+                  </td>
+                  <td><span class="tag tag-pink"><%= item.quantity %></span></td>
+                  <td class="text-muted">$<%= item.product.price %></td>
+                  <td class="price-badge">$<%= (item.product.price * item.quantity).toFixed(2) %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="total-bar" style="animation:fadeSlideUp 0.6s 0.2s ease both;">
+          <div>
+<pre class="ascii-art mint" style="font-size:0.55rem;opacity:0.5;">
+  * Bouquet Total *
+   o---o---o---o
+</pre>
+          </div>
+          <div>
+            <span style="font-family:var(--mono);font-size:0.8rem;color:var(--text-muted);">TOTAL: </span>
+            <span class="price-badge" style="font-size:1.5rem;">$<%= totalPrice %></span>
+          </div>
+        </div>
+
+        <div style="text-align:center;animation:fadeSlideUp 0.6s 0.3s ease both;">
+          <div class="ascii-divider">- - ~ ( place your order ) ~ - -</div>
+          <form action="/cart/order" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-primary" style="font-size:1rem;padding:0.9rem 2.5rem;margin-top:0.8rem;">
+              ** Place Order
+            </button>
+          </form>
+          <a href="/product" class="btn btn-ghost" style="margin-left:0.8rem;">Continue Shopping</a>
+        </div>
+
+      <% } else { %>
+        <div class="empty-cart glass-card" style="animation:fadeSlideUp 0.6s ease both;">
+<pre class="ascii-art lavender" style="font-size:0.7rem;opacity:0.5;text-align:center;margin-bottom:1rem;">
+    * @ * @ *
+    |  [ ]  |
+     \_____/
+</pre>
+          <p style="font-family:var(--mono);font-size:0.9rem;color:var(--text-muted);">~ Your cart is empty ~</p>
+          <a href="/product" class="btn btn-secondary" style="margin-top:1.5rem;">Browse the Garden</a>
+        </div>
+      <% } %>
+
+    </div>
+  </div>
+</body>
+</html>

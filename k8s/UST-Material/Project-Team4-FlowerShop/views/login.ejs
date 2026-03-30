@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFF | Login</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:1.5rem;}
+    .login-wrap{width:100%;max-width:420px;animation:fadeSlideUp 0.6s ease both;}
+    .flower-header{text-align:center;margin-bottom:1.8rem;}
+  </style>
+</head>
+<body>
+  <div class="petals-layer">
+    <span class="petal" style="color:var(--pink)">*</span>
+    <span class="petal" style="color:var(--lavender)">@</span>
+    <span class="petal" style="color:var(--mint)">o</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+    <span class="petal" style="color:var(--gold)">.</span>
+    <span class="petal" style="color:var(--lavender)">@</span>
+    <span class="petal" style="color:var(--mint)">*</span>
+    <span class="petal" style="color:var(--pink)">o</span>
+    <span class="petal" style="color:var(--lavender)">*</span>
+    <span class="petal" style="color:var(--gold)">@</span>
+    <span class="petal" style="color:var(--mint)">.</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+  </div>
+
+  <div class="page-wrap" style="width:100%;display:flex;justify-content:center;align-items:center;min-height:100vh;">
+    <div class="login-wrap">
+
+      <!-- ASCII flower header -->
+      <div class="flower-header">
+<pre class="ascii-art pink" style="font-size:0.68rem;opacity:0.7;text-align:center;">
+    ( * )       ( @ )       ( * )
+   / | \ \     / / | \     / / | \
+  /  |  \ \   / /  |  \   / /  |  \
+     |             |             |
+   -----         -----         -----
+</pre>
+        <div class="section-title" style="font-size:1.8rem;">Welcome Back</div>
+        <p class="section-sub" style="margin-top:0.3rem;">~ ENTER THE GARDEN ~</p>
+      </div>
+
+      <div class="glass-card" style="position:relative;">
+        <div class="corner-flower corner-tl"> *\n/ | \\\n  |</div>
+        <div class="corner-flower corner-tr"> *\n/ | \\\n  |</div>
+
+        <% if (success_msg && success_msg.length > 0) { %>
+          <div class="alert alert-success"><%= success_msg %></div>
+        <% } %>
+        <% if (error_msg && error_msg.length > 0) { %>
+          <div class="alert alert-danger"><%= error_msg %></div>
+        <% } %>
+
+        <form action="/auth/login" method="POST">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" placeholder="your_username" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="" required>
+          </div>
+
+          <div class="ascii-divider" style="margin:1rem 0;">- - ( * ) - -</div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.9rem;">
+            ** Enter the Garden
+          </button>
+        </form>
+
+        <p style="text-align:center;margin-top:1.5rem;font-size:0.82rem;color:var(--text-muted);">
+          New here?
+          <a href="/auth/signup" style="color:var(--lavender);text-decoration:none;font-weight:600;">
+            &nbsp;~~ Plant your roots &nbsp;
+          </a>
+        </p>
+
+        <div class="ascii-divider" style="margin-top:1.2rem;">
+          ~~ AFF | Abhi's Flower Fusion ~~
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

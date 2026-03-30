@@ -1,0 +1,90 @@
+# ============================================================
+# .dockerignore — Flower App
+# ============================================================
+# This file tells Docker which files/folders to EXCLUDE when
+# running `docker build`. It works like .gitignore.
+#
+# WHY THIS MATTERS:
+#   Docker sends everything in the build context (current
+#   directory) to the Docker daemon before building. Excluding
+#   large or irrelevant files makes builds:
+#     - Faster  (less data transferred to the daemon)
+#     - Smaller (prevents secrets/junk from entering the image)
+#     - Safer   (credentials don't get baked into the image)
+# ============================================================
+
+
+# -----------------------------------------------------------
+# Node.js dependencies
+# These are installed INSIDE the container by `npm install`.
+# Copying them from the host would embed wrong platform
+# binaries (e.g., Windows .dll vs Linux .so files).
+# -----------------------------------------------------------
+node_modules/
+npm-debug.log
+.npm/
+
+
+# -----------------------------------------------------------
+# Environment & secrets — NEVER bake these into an image!
+# Provide secrets at runtime via docker-compose environment:
+# or docker run -e / --env-file flags.
+# -----------------------------------------------------------
+.env
+.env.*
+*.pem
+*.key
+*.cert
+
+
+# -----------------------------------------------------------
+# Git repository data — not needed inside the container
+# -----------------------------------------------------------
+.git/
+.gitignore
+.gitattributes
+
+
+# -----------------------------------------------------------
+# Docker files themselves — no need to copy into the image
+# -----------------------------------------------------------
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+
+# -----------------------------------------------------------
+# Documentation — not needed at runtime
+# -----------------------------------------------------------
+*.md
+README*
+CHANGELOG*
+DOCKER.md
+
+
+# -----------------------------------------------------------
+# Editor / IDE artifacts
+# -----------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+
+# -----------------------------------------------------------
+# Logs — should not be in the image; use docker logs instead
+# -----------------------------------------------------------
+logs/
+*.log
+
+
+# -----------------------------------------------------------
+# Test files — not needed in the production image
+# -----------------------------------------------------------
+test/
+tests/
+*.test.js
+*.spec.js
+coverage/

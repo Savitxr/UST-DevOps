@@ -1,0 +1,103 @@
+services:
+
+  mongodb:
+    image: mongo:7
+    container_name: flower-mongodb
+    environment:
+      MONGO_INITDB_DATABASE: AFF-Docker
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - db-net
+
+
+  auth-api:
+    build: ./services/auth-api
+    container_name: flower-auth-api
+    depends_on:
+      - mongodb
+
+    environment:
+      - PORT=3001
+      - MONGO_URI=mongodb://mongodb:27017/AFF-Docker
+    networks:
+      - backend-net
+      - db-net
+
+
+
+  product-api:
+    build: ./services/product-api
+    container_name: flower-product-api
+    depends_on:
+      - mongodb
+    environment:
+      - PORT=3002
+      - MONGO_URI=mongodb://mongodb:27017/AFF-Docker
+    networks:
+      - backend-net
+      - db-net
+
+
+
+  cart-api:
+    build: ./services/cart-api
+    container_name: flower-cart-api
+    depends_on:
+      - mongodb
+    environment:
+      - PORT=3003
+      - MONGO_URI=mongodb://mongodb:27017/AFF-Docker
+    networks:
+      - backend-net
+      - db-net
+
+
+  web-app:
+    build: ./services/web-app
+    container_name: flower-web-app
+    depends_on:
+      - auth-api
+      - product-api
+      - cart-api
+
+    environment:
+      - PORT=3000
+      - SESSION_SECRET=team4-secret
+      - AUTH_API_URL=http://auth-api:3001
+      - PRODUCT_API_URL=http://product-api:3002
+      - CART_API_URL=http://cart-api:3003
+    networks:
+      - frontend-net
+      - backend-net
+
+
+ 
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: flower-nginx
+    depends_on:
+      - web-app
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    networks:
+      - frontend-net
+
+
+
+
+volumes:
+  mongo-data:
+    driver: local
+
+networks:
+  frontend-net:
+    driver: bridge
+
+  backend-net:
+    driver: bridge
+
+  db-net:
+    driver: bridge

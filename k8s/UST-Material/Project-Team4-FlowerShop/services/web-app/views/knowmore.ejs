@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | AFF</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/dashboard" class="navbar-brand">AFF</a>
+      <ul class="navbar-nav">
+        <li><a href="/product">Shop</a></li>
+        <li><a href="/customization">Customize</a></li>
+        <li><a href="/cart">Cart</a></li>
+        <li><a href="/seller">Sell</a></li>
+        <li><a href="/knowmore">About</a></li>
+        <li><a href="/auth/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-section">
+    <div class="container" style="max-width: 800px;">
+      <h2 class="section-title">About AFF</h2>
+      
+      <div class="card">
+        <h3>Team 4 Flower Fusion</h3>
+        <p>AFF is a premium flower marketplace that connects flower growers with customers looking for fresh, beautiful arrangements.</p>
+        <p>Our platform allows you to browse products, customize bouquets, and even become a seller to share your own flowers with the world.</p>
+      </div>
+      
+      <h3 class="section-title mt-4">3-Tier Architecture</h3>
+      
+      <div class="grid grid-3">
+        <div class="card text-center">
+          <h4>Frontend</h4>
+          <p class="card-text">nginx + web-app</p>
+          <p class="card-text">Presentation Layer</p>
+        </div>
+        <div class="card text-center">
+          <h4>Backend</h4>
+          <p class="card-text">auth-api, product-api, cart-api</p>
+          <p class="card-text">Business Logic Layer</p>
+        </div>
+        <div class="card text-center">
+          <h4>Database</h4>
+          <p class="card-text">MongoDB</p>
+          <p class="card-text">Data Layer</p>
+        </div>
+      </div>
+      
+      <div class="card mt-4">
+        <h4>Microservices</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Port</th>
+              <th>Responsibility</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>nginx</td>
+              <td>80</td>
+              <td>Reverse proxy (internet-facing)</td>
+            </tr>
+            <tr>
+              <td>web-app</td>
+              <td>3000</td>
+              <td>Serves HTML views</td>
+            </tr>
+            <tr>
+              <td>auth-api</td>
+              <td>3001</td>
+              <td>User authentication</td>
+            </tr>
+            <tr>
+              <td>product-api</td>
+              <td>3002</td>
+              <td>Products & sellers</td>
+            </tr>
+            <tr>
+              <td>cart-api</td>
+              <td>3003</td>
+              <td>Cart, orders, customization</td>
+            </tr>
+            <tr>
+              <td>mongodb</td>
+              <td>27017</td>
+              <td>Database (internal only)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="card mt-4">
+        <h4>Network Isolation</h4>
+        <ul>
+          <li><strong>frontend-net:</strong> nginx ↔ web-app</li>
+          <li><strong>backend-net:</strong> web-app ↔ API services</li>
+          <li><strong>db-net:</strong> API services ↔ MongoDB</li>
+        </ul>
+        <p class="mt-2">nginx cannot reach MongoDB. MongoDB cannot be accessed from the internet. Full isolation.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>AFF — Docker Training Project | 3-Tier Microservices</p>
+    </div>
+  </footer>
+</body>
+</html>

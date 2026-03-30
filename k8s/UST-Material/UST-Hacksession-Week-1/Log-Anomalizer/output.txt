@@ -1,0 +1,564 @@
+jun 18 02:23:10 combo ftpd[31277]: user unknown timed out after 900 seconds at sat jun 18 02:23:10 2005 
+jun 18 02:23:10 combo ftpd[31277]: user unknown timed out after 900 seconds at sat jun 18 02:23:10 2005 
+jun 18 02:23:10 combo ftpd[31277]: user unknown timed out after 900 seconds at sat jun 18 02:23:10 2005 
+jun 18 02:23:10 combo ftpd[31277]: user unknown timed out after 900 seconds at sat jun 18 02:23:10 2005 
+jun 18 02:23:10 combo ftpd[31277]: user unknown timed out after 900 seconds at sat jun 18 02:23:10 2005 
+jun 19 04:08:57 combo cups: cupsd shutdown succeeded
+jun 19 04:09:02 combo cups: cupsd startup succeeded
+jun 26 04:04:19 combo cups: cupsd shutdown succeeded
+jun 26 04:04:24 combo cups: cupsd startup succeeded
+jul  3 04:07:49 combo cups: cupsd shutdown succeeded
+jul  3 04:07:55 combo cups: cupsd startup succeeded
+jul 10 04:04:33 combo cups: cupsd shutdown succeeded
+jul 10 04:04:39 combo cups: cupsd startup succeeded
+jul 17 04:08:10 combo cups: cupsd shutdown succeeded
+jul 17 04:08:16 combo cups: cupsd startup succeeded
+jul 24 04:20:21 combo cups: cupsd shutdown succeeded
+jul 24 04:20:26 combo cups: cupsd startup succeeded
+jun 19 04:08:57 combo cups: cupsd shutdown succeeded
+jun 26 04:04:19 combo cups: cupsd shutdown succeeded
+jul  3 04:07:49 combo cups: cupsd shutdown succeeded
+jul 10 04:04:33 combo cups: cupsd shutdown succeeded
+jul 17 04:08:10 combo cups: cupsd shutdown succeeded
+jul 24 04:20:21 combo cups: cupsd shutdown succeeded
+jun 19 04:09:02 combo cups: cupsd startup succeeded
+jun 26 04:04:24 combo cups: cupsd startup succeeded
+jul  3 04:07:55 combo cups: cupsd startup succeeded
+jul 10 04:04:39 combo cups: cupsd startup succeeded
+jul 17 04:08:16 combo cups: cupsd startup succeeded
+jul 24 04:20:26 combo cups: cupsd startup succeeded
+jul 27 14:41:57 combo syslog: syslogd startup succeeded
+jul 27 14:41:57 combo syslog: klogd startup succeeded
+jul 27 14:41:57 combo irqbalance: irqbalance startup succeeded
+jul 27 14:41:57 combo portmap: portmap startup succeeded
+jul 27 14:41:58 combo nfslock: rpc.statd startup succeeded
+jul 27 14:41:58 combo rpcidmapd: rpc.idmapd startup succeeded
+jul 27 14:41:59 combo bluetooth: hcid startup succeeded
+jul 27 14:41:59 combo bluetooth: sdpd startup succeeded
+jun 19 04:09:11 combo syslogd 1.4.1: restart.
+jun 26 04:04:31 combo syslogd 1.4.1: restart.
+jul  3 04:08:03 combo syslogd 1.4.1: restart.
+jul 10 04:04:46 combo syslogd 1.4.1: restart.
+jul 17 04:08:23 combo syslogd 1.4.1: restart.
+jul 24 04:20:42 combo syslogd 1.4.1: restart.
+jul 27 14:41:57 combo syslogd 1.4.1: restart.
+jul 27 14:41:57 combo syslog: syslogd startup succeeded
+jun 20 04:44:39 combo snmpd[2318]: received snmp packet(s) from 67.170.148.126 
+jun 20 04:44:39 combo snmpd[2318]: received snmp packet(s) from 67.170.148.126 
+jun 30 20:53:04 combo klogind[19272]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19287]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19286]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19271]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19270]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19269]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19268]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19288]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19272]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19287]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19286]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19271]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19270]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19269]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19268]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19288]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19272]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19287]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19286]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19271]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19270]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19269]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19268]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19288]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19272]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19287]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19286]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19271]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19270]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19269]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19268]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19288]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jul 27 14:41:58 combo kernel: dentry cache hash table entries: 16384 (order: 4, 65536 bytes)
+jun 30 20:53:04 combo klogind[19272]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19287]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19286]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19271]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19270]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19269]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19268]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19288]: authentication failed from 163.27.187.39 (163.27.187.39): permission denied in replay cache code 
+jun 30 20:53:04 combo klogind[19274]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19266]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19267]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19278]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19273]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19276]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19275]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19277]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19279]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19280]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19281]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19282]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19283]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19285]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19284]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:04 combo klogind[19274]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19266]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19267]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19278]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19273]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19276]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19275]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19277]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19279]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19280]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19281]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19282]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19283]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19285]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19284]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:04 combo klogind[19274]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19266]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19267]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19278]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19273]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19276]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19275]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19277]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19279]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19280]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19281]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19282]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19283]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19285]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jun 30 20:53:06 combo klogind[19284]: authentication failed from 163.27.187.39 (163.27.187.39): software caused connection abort 
+jul  7 08:06:12 combo gpm[2094]: *** info [mice.c(1766)]: 
+jul 27 14:41:57 combo kernel: detected 731.219 mhz processor.
+jul  7 08:06:12 combo gpm[2094]: imps2: auto-detected intellimouse ps/2
+jul  7 08:06:15 combo  -- root[2421]: root login on tty2
+jul 24 02:38:23 combo ftpd[16781]: anonymous ftp login from 84.102.20.2,  (anonymous)
+jul 24 02:38:23 combo ftpd[16782]: anonymous ftp login from 84.102.20.2,  (anonymous)
+jul  7 08:06:15 combo  -- root[2421]: root login on tty2
+jul 27 14:41:57 combo kernel: on node 0 totalpages: 32430
+jul 27 14:41:58 combo kernel: intel machine check reporting enabled on cpu#0.
+jul  7 08:06:15 combo  -- root[2421]: root login on tty2
+jul  7 08:09:11 combo udev[12754]: removing device node '/udev/vcsa2'
+jul  7 08:09:11 combo udev[12753]: removing device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12786]: removing device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12790]: removing device node '/udev/vcsa2'
+jul  7 08:09:11 combo udev[12754]: removing device node '/udev/vcsa2'
+jul  7 08:09:11 combo udev[12753]: removing device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12777]: creating device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12778]: creating device node '/udev/vcsa2'
+jul  7 08:09:11 combo udev[12786]: removing device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12790]: removing device node '/udev/vcsa2'
+jul  7 08:09:11 combo udev[12795]: creating device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12798]: creating device node '/udev/vcsa2'
+jul 27 14:42:00 combo kernel: isapnp: no plug & play device found
+jul  7 08:09:11 combo udev[12754]: removing device node '/udev/vcsa2'
+jul  7 08:09:11 combo udev[12753]: removing device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12777]: creating device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12778]: creating device node '/udev/vcsa2'
+jul  7 08:09:11 combo udev[12786]: removing device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12790]: removing device node '/udev/vcsa2'
+jul  7 08:09:11 combo udev[12795]: creating device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12798]: creating device node '/udev/vcsa2'
+jul 27 14:41:57 combo kernel: on node 0 totalpages: 32430
+jul  7 08:09:11 combo udev[12777]: creating device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12778]: creating device node '/udev/vcsa2'
+jul  7 08:09:11 combo udev[12795]: creating device node '/udev/vcs2'
+jul  7 08:09:11 combo udev[12798]: creating device node '/udev/vcsa2'
+jul 11 11:33:17 combo gdm-binary[2803]: couldn't authenticate user
+jul 24 02:38:23 combo ftpd[16781]: anonymous ftp login from 84.102.20.2,  (anonymous)
+jul 24 02:38:23 combo ftpd[16782]: anonymous ftp login from 84.102.20.2,  (anonymous)
+jul 24 02:38:23 combo ftpd[16781]: anonymous ftp login from 84.102.20.2,  (anonymous)
+jul 24 02:38:23 combo ftpd[16782]: anonymous ftp login from 84.102.20.2,  (anonymous)
+jul 25 12:09:06 combo named[2306]: notify question section contains no soa
+jul 25 12:18:50 combo named[2306]: notify question section contains no soa
+jul 25 12:27:05 combo named[2306]: notify question section contains no soa
+jul 25 12:35:24 combo named[2306]: notify question section contains no soa
+jul 25 12:54:46 combo named[2306]: notify question section contains no soa
+jul 25 13:33:41 combo named[2306]: notify question section contains no soa
+jul 25 13:41:34 combo named[2306]: notify question section contains no soa
+jul 25 13:50:24 combo named[2306]: notify question section contains no soa
+jul 25 14:00:03 combo named[2306]: notify question section contains no soa
+jul 25 14:08:28 combo named[2306]: notify question section contains no soa
+jul 25 14:17:19 combo named[2306]: notify question section contains no soa
+jul 25 14:33:46 combo named[2306]: notify question section contains no soa
+jul 25 14:48:30 combo named[2306]: notify question section contains no soa
+jul 25 14:56:13 combo named[2306]: notify question section contains no soa
+jul 25 15:50:04 combo named[2306]: notify question section contains no soa
+jul 25 16:29:20 combo named[2306]: notify question section contains no soa
+jul 25 12:09:06 combo named[2306]: notify question section contains no soa
+jul 25 12:18:50 combo named[2306]: notify question section contains no soa
+jul 25 12:27:05 combo named[2306]: notify question section contains no soa
+jul 25 12:35:24 combo named[2306]: notify question section contains no soa
+jul 25 12:54:46 combo named[2306]: notify question section contains no soa
+jul 25 13:33:41 combo named[2306]: notify question section contains no soa
+jul 25 13:41:34 combo named[2306]: notify question section contains no soa
+jul 25 13:50:24 combo named[2306]: notify question section contains no soa
+jul 25 14:00:03 combo named[2306]: notify question section contains no soa
+jul 25 14:08:28 combo named[2306]: notify question section contains no soa
+jul 25 14:17:19 combo named[2306]: notify question section contains no soa
+jul 25 14:33:46 combo named[2306]: notify question section contains no soa
+jul 25 14:48:30 combo named[2306]: notify question section contains no soa
+jul 25 14:56:13 combo named[2306]: notify question section contains no soa
+jul 25 15:50:04 combo named[2306]: notify question section contains no soa
+jul 25 16:29:20 combo named[2306]: notify question section contains no soa
+jul 25 12:09:06 combo named[2306]: notify question section contains no soa
+jul 25 12:18:50 combo named[2306]: notify question section contains no soa
+jul 25 12:27:05 combo named[2306]: notify question section contains no soa
+jul 25 12:35:24 combo named[2306]: notify question section contains no soa
+jul 25 12:54:46 combo named[2306]: notify question section contains no soa
+jul 25 13:33:41 combo named[2306]: notify question section contains no soa
+jul 25 13:41:34 combo named[2306]: notify question section contains no soa
+jul 25 13:50:24 combo named[2306]: notify question section contains no soa
+jul 25 14:00:03 combo named[2306]: notify question section contains no soa
+jul 25 14:08:28 combo named[2306]: notify question section contains no soa
+jul 25 14:17:19 combo named[2306]: notify question section contains no soa
+jul 25 14:33:46 combo named[2306]: notify question section contains no soa
+jul 25 14:48:30 combo named[2306]: notify question section contains no soa
+jul 25 14:56:13 combo named[2306]: notify question section contains no soa
+jul 25 15:50:04 combo named[2306]: notify question section contains no soa
+jul 25 16:29:20 combo named[2306]: notify question section contains no soa
+jul 25 12:09:06 combo named[2306]: notify question section contains no soa
+jul 25 12:18:50 combo named[2306]: notify question section contains no soa
+jul 25 12:27:05 combo named[2306]: notify question section contains no soa
+jul 25 12:35:24 combo named[2306]: notify question section contains no soa
+jul 25 12:54:46 combo named[2306]: notify question section contains no soa
+jul 25 13:33:41 combo named[2306]: notify question section contains no soa
+jul 25 13:41:34 combo named[2306]: notify question section contains no soa
+jul 25 13:50:24 combo named[2306]: notify question section contains no soa
+jul 25 14:00:03 combo named[2306]: notify question section contains no soa
+jul 25 14:08:28 combo named[2306]: notify question section contains no soa
+jul 25 14:17:19 combo named[2306]: notify question section contains no soa
+jul 25 14:33:46 combo named[2306]: notify question section contains no soa
+jul 25 14:48:30 combo named[2306]: notify question section contains no soa
+jul 25 14:56:13 combo named[2306]: notify question section contains no soa
+jul 25 15:50:04 combo named[2306]: notify question section contains no soa
+jul 25 16:29:20 combo named[2306]: notify question section contains no soa
+jul 25 12:09:06 combo named[2306]: notify question section contains no soa
+jul 25 12:18:50 combo named[2306]: notify question section contains no soa
+jul 25 12:27:05 combo named[2306]: notify question section contains no soa
+jul 25 12:35:24 combo named[2306]: notify question section contains no soa
+jul 25 12:54:46 combo named[2306]: notify question section contains no soa
+jul 25 13:33:41 combo named[2306]: notify question section contains no soa
+jul 25 13:41:34 combo named[2306]: notify question section contains no soa
+jul 25 13:50:24 combo named[2306]: notify question section contains no soa
+jul 25 14:00:03 combo named[2306]: notify question section contains no soa
+jul 25 14:08:28 combo named[2306]: notify question section contains no soa
+jul 25 14:17:19 combo named[2306]: notify question section contains no soa
+jul 25 14:33:46 combo named[2306]: notify question section contains no soa
+jul 25 14:48:30 combo named[2306]: notify question section contains no soa
+jul 25 14:56:13 combo named[2306]: notify question section contains no soa
+jul 25 15:50:04 combo named[2306]: notify question section contains no soa
+jul 25 16:29:20 combo named[2306]: notify question section contains no soa
+jul 27 14:41:58 combo kernel: acpi: acpi tables contain no pci irq routing entries
+jul 27 14:42:00 combo kernel: isapnp: no plug & play device found
+jul 25 12:09:06 combo named[2306]: notify question section contains no soa
+jul 25 12:18:50 combo named[2306]: notify question section contains no soa
+jul 25 12:27:05 combo named[2306]: notify question section contains no soa
+jul 25 12:35:24 combo named[2306]: notify question section contains no soa
+jul 25 12:54:46 combo named[2306]: notify question section contains no soa
+jul 25 13:33:41 combo named[2306]: notify question section contains no soa
+jul 25 13:41:34 combo named[2306]: notify question section contains no soa
+jul 25 13:50:24 combo named[2306]: notify question section contains no soa
+jul 25 14:00:03 combo named[2306]: notify question section contains no soa
+jul 25 14:08:28 combo named[2306]: notify question section contains no soa
+jul 25 14:17:19 combo named[2306]: notify question section contains no soa
+jul 25 14:33:46 combo named[2306]: notify question section contains no soa
+jul 25 14:48:30 combo named[2306]: notify question section contains no soa
+jul 25 14:56:13 combo named[2306]: notify question section contains no soa
+jul 25 15:50:04 combo named[2306]: notify question section contains no soa
+jul 25 16:29:20 combo named[2306]: notify question section contains no soa
+jul 25 23:23:13 combo ftpd[26463]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26466]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26482]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26484]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26463]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26466]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26482]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26484]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26463]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26466]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26482]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26484]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26463]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26466]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26482]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26484]: getpeername (ftpd): transport endpoint is not connected
+jul 27 14:41:57 combo kernel: acpi disabled because your bios is from 2000 and too old
+jul 27 14:41:58 combo kernel: there is already a security framework initialized, register_security failed.
+jul 25 23:23:13 combo ftpd[26463]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26466]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26482]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26484]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26463]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26466]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26482]: getpeername (ftpd): transport endpoint is not connected
+jul 25 23:23:13 combo ftpd[26484]: getpeername (ftpd): transport endpoint is not connected
+jul 27 14:41:57 combo kernel: you can enable it with acpi=force
+jul 25 23:23:13 combo xinetd[26482]: warning: can't get client address: connection reset by peer
+jul 25 23:23:13 combo xinetd[26484]: warning: can't get client address: connection reset by peer
+jul 25 23:23:13 combo xinetd[26482]: warning: can't get client address: connection reset by peer
+jul 25 23:23:13 combo xinetd[26484]: warning: can't get client address: connection reset by peer
+jul 25 23:23:13 combo xinetd[26482]: warning: can't get client address: connection reset by peer
+jul 25 23:23:13 combo xinetd[26484]: warning: can't get client address: connection reset by peer
+jul 25 23:23:13 combo xinetd[26482]: warning: can't get client address: connection reset by peer
+jul 25 23:23:13 combo xinetd[26484]: warning: can't get client address: connection reset by peer
+jul 27 14:41:57 combo kernel: klogd 1.4.1, log source = /proc/kmsg started.
+jul 27 14:41:57 combo syslog: klogd startup succeeded
+jul 27 14:41:57 combo kernel: klogd 1.4.1, log source = /proc/kmsg started.
+jul 27 14:41:57 combo kernel: klogd 1.4.1, log source = /proc/kmsg started.
+jul 27 14:41:59 combo hcid[1690]: hci daemon ver 2.4 started
+jul 27 14:41:59 combo sdpd[1696]: sdpd v1.5 started 
+jul 27 14:41:57 combo kernel: linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (red hat linux 3.3.3-7)) #1 sat may 8 09:04:50 edt 2004
+jul 27 14:41:58 combo kernel: linux plug and play support v0.97 (c) adam belay
+jul 27 14:42:00 combo kernel: linux agpgart interface v0.100 (c) dave jonesjul 27 14:41:57 combo kernel: linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (red hat linux 3.3.3-7)) #1 sat may 8 09:04:50 edt 2004
+jul 27 14:41:57 combo rpc.statd[1618]: version 1.0.6 starting
+jul 27 14:41:59 combo kernel: apm: bios version 1.2 flags 0x03 (driver version 1.16ac)
+jul 27 14:41:57 combo kernel: linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (red hat linux 3.3.3-7)) #1 sat may 8 09:04:50 edt 2004
+jul 27 14:41:57 combo kernel: linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (red hat linux 3.3.3-7)) #1 sat may 8 09:04:50 edt 2004
+jul 27 14:41:57 combo kernel: linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (red hat linux 3.3.3-7)) #1 sat may 8 09:04:50 edt 2004
+jul 27 14:41:57 combo kernel: linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (red hat linux 3.3.3-7)) #1 sat may 8 09:04:50 edt 2004
+jul 27 14:41:57 combo kernel: linux version 2.6.5-1.358 (bhcompile@bugs.build.redhat.com) (gcc version 3.3.3 20040412 (red hat linux 3.3.3-7)) #1 sat may 8 09:04:50 edt 2004
+jul 27 14:41:57 combo kernel: acpi disabled because your bios is from 2000 and too old
+jul 27 14:41:58 combo kernel: pci: pci bios revision 2.10 entry at 0xfc0ce, last bus=1
+jul 27 14:41:59 combo kernel: apm: bios version 1.2 flags 0x03 (driver version 1.16ac)
+jul 27 14:41:57 combo kernel: bios-provided physical ram map:
+jul 27 14:41:57 combo kernel: bios-provided physical ram map:
+jul 27 14:41:57 combo kernel:  bios-e820: 0000000000000000 - 00000000000a0000 (usable)
+jul 27 14:41:57 combo kernel:  bios-e820: 0000000000000000 - 00000000000a0000 (usable)
+jul 27 14:41:57 combo kernel:  bios-e820: 00000000000f0000 - 0000000000100000 (reserved)
+jul 27 14:41:57 combo kernel:  bios-e820: 00000000000f0000 - 0000000000100000 (reserved)
+jul 27 14:41:57 combo kernel:  bios-e820: 0000000000100000 - 0000000007eae000 (usable)
+jul 27 14:41:57 combo kernel:  bios-e820: 0000000000100000 - 0000000007eae000 (usable)
+jul 27 14:41:57 combo kernel:  bios-e820: 0000000007eae000 - 0000000008000000 (reserved)
+jul 27 14:41:57 combo kernel:  bios-e820: 0000000007eae000 - 0000000008000000 (reserved)
+jul 27 14:41:57 combo kernel:  bios-e820: 00000000ffb00000 - 0000000100000000 (reserved)
+jul 27 14:41:57 combo kernel:  bios-e820: 00000000ffb00000 - 0000000100000000 (reserved)
+jul 27 14:41:57 combo kernel: 0mb highmem available.
+jul 27 14:41:57 combo kernel: 0mb highmem available.
+jul 27 14:41:57 combo kernel:   highmem zone: 0 pages, lifo batch:1
+jul 27 14:41:58 combo kernel: memory: 125312k/129720k available (1540k kernel code, 3860k reserved, 599k data, 144k init, 0k highmem)
+jul 27 14:41:57 combo kernel: 126mb lowmem available.
+jul 27 14:41:57 combo kernel: 126mb lowmem available.
+jul 27 14:41:57 combo kernel: zapping low mappings.
+jul 27 14:41:57 combo kernel: zapping low mappings.
+jul 27 14:41:57 combo kernel: on node 0 totalpages: 32430
+jul 27 14:41:57 combo kernel:   dma zone: 4096 pages, lifo batch:1
+jul 27 14:41:57 combo kernel:   dma zone: 4096 pages, lifo batch:1
+jul 27 14:41:57 combo kernel: pid hash table entries: 512 (order 9: 4096 bytes)
+jul 27 14:41:58 combo kernel: mount-cache hash table entries: 512 (order: 0, 4096 bytes)
+jul 27 14:41:59 combo kernel: dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+jul 27 14:41:57 combo kernel:   dma zone: 4096 pages, lifo batch:1
+jul 27 14:41:57 combo kernel:   normal zone: 28334 pages, lifo batch:6
+jul 27 14:41:57 combo kernel:   highmem zone: 0 pages, lifo batch:1
+jul 27 14:41:57 combo kernel:   normal zone: 28334 pages, lifo batch:6
+jul 27 14:41:57 combo kernel:   normal zone: 28334 pages, lifo batch:6
+jul 27 14:41:57 combo irqbalance: irqbalance startup succeeded
+jul 27 14:41:57 combo kernel: dmi 2.3 present.
+jul 27 14:41:57 combo kernel: acpi disabled because your bios is from 2000 and too old
+jul 27 14:41:58 combo kernel: acpi: acpi tables contain no pci irq routing entries
+jul 27 14:41:57 combo kernel: acpi disabled because your bios is from 2000 and too old
+jul 27 14:41:57 combo kernel: acpi disabled because your bios is from 2000 and too old
+jul 27 14:41:57 combo kernel: acpi disabled because your bios is from 2000 and too old
+jul 27 14:41:57 combo kernel: acpi disabled because your bios is from 2000 and too old
+jul 27 14:41:57 combo kernel: acpi disabled because your bios is from 2000 and too old
+jul 27 14:41:58 combo kernel: enabling fast fpu save and restore... done.
+jul 27 14:41:58 combo kernel: linux plug and play support v0.97 (c) adam belay
+jul 27 14:41:57 combo kernel: acpi disabled because your bios is from 2000 and too old
+jul 27 14:41:57 combo kernel: acpi disabled because your bios is from 2000 and too old
+jul 27 14:41:57 combo kernel: you can enable it with acpi=force
+jul 27 14:41:57 combo kernel: you can enable it with acpi=force
+jul 27 14:41:57 combo kernel: you can enable it with acpi=force
+jul 27 14:41:57 combo kernel: built 1 zonelists
+jul 27 14:41:57 combo kernel: built 1 zonelists
+jul 27 14:41:57 combo kernel: kernel command line: ro root=label=/ rhgb quiet
+jul 27 14:41:57 combo kernel: kernel command line: ro root=label=/ rhgb quiet
+jul 27 14:41:57 combo kernel: kernel command line: ro root=label=/ rhgb quiet
+jul 27 14:41:57 combo kernel: kernel command line: ro root=label=/ rhgb quiet
+jul 27 14:41:57 combo kernel: mapped 4g/4g trampoline to ffff3000.
+jul 27 14:41:57 combo kernel: mapped 4g/4g trampoline to ffff3000.
+jul 27 14:41:57 combo kernel: mapped 4g/4g trampoline to ffff3000.
+jul 27 14:41:57 combo kernel: initializing cpu#0
+jul 27 14:41:58 combo random: initializing random number generator:  succeeded
+jul 27 14:41:59 combo kernel: audit: initializing netlink socket (disabled)
+jul 27 14:41:59 combo kernel: initializing cryptographic api
+jul 27 14:41:57 combo kernel: cpu 0 irqstacks, hard=02345000 soft=02344000
+jul 27 14:41:57 combo portmap: portmap startup succeeded
+jul 27 14:41:57 combo kernel: pid hash table entries: 512 (order 9: 4096 bytes)
+jul 27 14:41:57 combo kernel: pid hash table entries: 512 (order 9: 4096 bytes)
+jul 27 14:41:58 combo kernel: dentry cache hash table entries: 16384 (order: 4, 65536 bytes)
+jul 27 14:41:58 combo kernel: inode-cache hash table entries: 8192 (order: 3, 32768 bytes)
+jul 27 14:41:58 combo kernel: mount-cache hash table entries: 512 (order: 0, 4096 bytes)
+jul 27 14:41:59 combo kernel: dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+jul 27 14:41:57 combo kernel: pid hash table entries: 512 (order 9: 4096 bytes)
+jul 27 14:41:58 combo kernel: dentry cache hash table entries: 16384 (order: 4, 65536 bytes)
+jul 27 14:41:58 combo kernel: inode-cache hash table entries: 8192 (order: 3, 32768 bytes)
+jul 27 14:41:58 combo kernel: mount-cache hash table entries: 512 (order: 0, 4096 bytes)
+jul 27 14:41:59 combo kernel: pci: invalid acpi-pci irq routing table
+jul 27 14:41:59 combo kernel: dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+jul 27 14:41:58 combo kernel: acpi: acpi tables contain no pci irq routing entries
+jul 27 14:41:57 combo kernel: pid hash table entries: 512 (order 9: 4096 bytes)
+jul 27 14:41:58 combo kernel: mount-cache hash table entries: 512 (order: 0, 4096 bytes)
+jul 27 14:41:57 combo kernel: detected 731.219 mhz processor.
+jul 27 14:41:57 combo rpc.statd[1618]: version 1.0.6 starting
+jul 27 14:41:58 combo kernel: selinux:  starting in permissive mode
+jul 27 14:41:58 combo rc: starting pcmcia:  succeeded
+jul 27 14:41:57 combo kernel: using tsc for high-res timesource
+jul 27 14:41:58 combo kernel: pci: using configuration type 1
+jul 27 14:41:59 combo kernel: pci: using irq router piix/ich [8086/2410] at 0000:00:1f.0
+jul 27 14:41:57 combo kernel: using tsc for high-res timesource
+jul 27 14:41:57 combo kernel: using tsc for high-res timesource
+jul 27 14:41:58 combo kernel: console: colour vga+ 80x25
+jul 27 14:41:58 combo kernel: console: colour vga+ 80x25
+jul 27 14:41:59 combo kernel: total hugetlb memory allocated, 0
+jul 27 14:41:58 combo kernel: memory: 125312k/129720k available (1540k kernel code, 3860k reserved, 599k data, 144k init, 0k highmem)
+jul 27 14:41:58 combo kernel: memory: 125312k/129720k available (1540k kernel code, 3860k reserved, 599k data, 144k init, 0k highmem)
+jul 27 14:41:58 combo kernel: memory: 125312k/129720k available (1540k kernel code, 3860k reserved, 599k data, 144k init, 0k highmem)
+jul 27 14:41:58 combo kernel: memory: 125312k/129720k available (1540k kernel code, 3860k reserved, 599k data, 144k init, 0k highmem)
+jul 27 14:41:58 combo kernel: calibrating delay loop... 1445.88 bogomips
+jul 27 14:41:58 combo kernel: calibrating delay loop... 1445.88 bogomips
+jul 27 14:41:58 combo kernel: calibrating delay loop... 1445.88 bogomips
+jul 27 14:41:58 combo kernel: security scaffold v1.0.0 initialized
+jul 27 14:41:58 combo kernel: there is already a security framework initialized, register_security failed.
+jul 27 14:41:58 combo kernel: security scaffold v1.0.0 initialized
+jul 27 14:41:58 combo kernel: security scaffold v1.0.0 initialized
+jul 27 14:41:58 combo kernel: capability lsm initialized
+jul 27 14:41:59 combo kernel: audit(1122475266.4294965305:0): initialized
+jul 27 14:41:58 combo kernel: selinux:  starting in permissive mode
+jul 27 14:41:58 combo kernel: selinux:  starting in permissive mode
+jul 27 14:41:58 combo kernel: there is already a security framework initialized, register_security failed.
+jul 27 14:41:58 combo kernel: there is already a security framework initialized, register_security failed.
+jul 27 14:41:58 combo kernel: there is already a security framework initialized, register_security failed.
+jul 27 14:41:58 combo kernel: there is already a security framework initialized, register_security failed.
+jul 27 14:41:58 combo kernel: failure registering capabilities with the kernel
+jul 27 14:41:58 combo kernel: selinux_register_security:  registering secondary module capability
+jul 27 14:41:59 combo kernel: selinux:  registering netfilter hooks
+jul 27 14:41:58 combo kernel: failure registering capabilities with the kernel
+jul 27 14:41:58 combo kernel: failure registering capabilities with the kernel
+jul 27 14:41:58 combo kernel: selinux_register_security:  registering secondary module capability
+jul 27 14:41:58 combo kernel: selinux_register_security:  registering secondary module capability
+jul 27 14:41:58 combo kernel: selinux_register_security:  registering secondary module capability
+jul 27 14:41:58 combo kernel: capability lsm initialized
+jul 27 14:41:58 combo kernel: capability lsm initialized
+jul 27 14:41:58 combo kernel: dentry cache hash table entries: 16384 (order: 4, 65536 bytes)
+jul 27 14:41:58 combo kernel: dentry cache hash table entries: 16384 (order: 4, 65536 bytes)
+jul 27 14:41:58 combo kernel: dentry cache hash table entries: 16384 (order: 4, 65536 bytes)
+jul 27 14:41:58 combo kernel: inode-cache hash table entries: 8192 (order: 3, 32768 bytes)
+jul 27 14:41:58 combo kernel: inode-cache hash table entries: 8192 (order: 3, 32768 bytes)
+jul 27 14:41:58 combo kernel: cpu: l1 i cache: 16k, l1 d cache: 16k
+jul 27 14:41:58 combo kernel: cpu: l1 i cache: 16k, l1 d cache: 16k
+jul 27 14:41:58 combo kernel: cpu: l1 i cache: 16k, l1 d cache: 16k
+jul 27 14:41:58 combo kernel: cpu: l1 i cache: 16k, l1 d cache: 16k
+jul 27 14:41:58 combo kernel: cpu: l2 cache: 256k
+jul 27 14:41:58 combo kernel: cpu: l2 cache: 256k
+jul 27 14:41:58 combo kernel: intel machine check architecture supported.
+jul 27 14:41:58 combo kernel: intel machine check reporting enabled on cpu#0.
+jul 27 14:41:58 combo kernel: cpu: intel pentium iii (coppermine) stepping 06
+jul 27 14:41:58 combo kernel: intel machine check architecture supported.
+jul 27 14:41:58 combo kernel: intel machine check reporting enabled on cpu#0.
+jul 27 14:41:58 combo kernel: intel machine check architecture supported.
+jul 27 14:41:58 combo kernel: intel machine check reporting enabled on cpu#0.
+jul 27 14:41:58 combo kernel: intel machine check reporting enabled on cpu#0.
+jul 27 14:41:58 combo kernel: cpu: intel pentium iii (coppermine) stepping 06
+jul 27 14:41:58 combo kernel: cpu: intel pentium iii (coppermine) stepping 06
+jul 27 14:41:58 combo kernel: cpu: intel pentium iii (coppermine) stepping 06
+jul 27 14:41:58 combo kernel: enabling fast fpu save and restore... done.
+jul 27 14:41:58 combo kernel: enabling unmasked simd fpu exception support... done.
+jul 27 14:41:58 combo kernel: enabling fast fpu save and restore... done.
+jul 27 14:41:58 combo kernel: enabling fast fpu save and restore... done.
+jul 27 14:41:58 combo kernel: enabling unmasked simd fpu exception support... done.
+jul 27 14:41:58 combo kernel: enabling fast fpu save and restore... done.
+jul 27 14:41:58 combo kernel: enabling unmasked simd fpu exception support... done.
+jul 27 14:41:58 combo kernel: enabling unmasked simd fpu exception support... done.
+jul 27 14:41:58 combo kernel: enabling unmasked simd fpu exception support... done.
+jul 27 14:41:58 combo kernel: linux plug and play support v0.97 (c) adam belay
+jul 27 14:41:58 combo kernel: checking 'hlt' instruction... ok.
+jul 27 14:41:58 combo random: initializing random number generator:  succeeded
+jul 27 14:41:58 combo random: initializing random number generator:  succeeded
+jul 27 14:41:58 combo kernel: posix conformance testing by unifix
+jul 27 14:41:58 combo kernel: posix conformance testing by unifix
+jul 27 14:41:58 combo kernel: posix conformance testing by unifix
+jul 27 14:41:58 combo kernel: posix conformance testing by unifix
+jul 27 14:41:58 combo kernel: net: registered protocol family 16
+jul 27 14:41:58 combo kernel: usbcore: registered new driver usbfs
+jul 27 14:41:58 combo kernel: usbcore: registered new driver hub
+jul 27 14:41:58 combo kernel: net: registered protocol family 16
+jul 27 14:41:58 combo kernel: net: registered protocol family 16
+jul 27 14:41:58 combo kernel: pci: pci bios revision 2.10 entry at 0xfc0ce, last bus=1
+jul 27 14:41:58 combo kernel: acpi: acpi tables contain no pci irq routing entries
+jul 27 14:41:59 combo kernel: pci: probing pci hardware
+jul 27 14:41:59 combo kernel: pci: probing pci hardware (bus 00)
+jul 27 14:41:59 combo kernel: pci_hotplug: pci hot plug pci core version: 0.5
+jul 27 14:41:58 combo kernel: pci: pci bios revision 2.10 entry at 0xfc0ce, last bus=1
+jul 27 14:41:58 combo kernel: acpi: subsystem revision 20040326
+jul 27 14:41:58 combo kernel: pci: pci bios revision 2.10 entry at 0xfc0ce, last bus=1
+jul 27 14:41:58 combo kernel: pci: pci bios revision 2.10 entry at 0xfc0ce, last bus=1
+jul 27 14:41:58 combo kernel: pci: using configuration type 1
+jul 27 14:41:58 combo kernel: pci: using configuration type 1
+jul 27 14:41:58 combo kernel: acpi: subsystem revision 20040326
+jul 27 14:41:58 combo kernel: acpi: subsystem revision 20040326
+jul 27 14:41:58 combo kernel: acpi: interpreter disabled.
+jul 27 14:41:58 combo kernel: linux plug and play support v0.97 (c) adam belay
+jul 27 14:41:59 combo kernel: pci_hotplug: pci hot plug pci core version: 0.5
+jul 27 14:42:00 combo kernel: isapnp: no plug & play device found
+jul 27 14:41:58 combo kernel: linux plug and play support v0.97 (c) adam belay
+jul 27 14:42:00 combo kernel: isapnp: no plug & play device found
+jul 27 14:41:58 combo kernel: linux plug and play support v0.97 (c) adam belay
+jul 27 14:41:58 combo kernel: linux plug and play support v0.97 (c) adam belay
+jul 27 14:41:58 combo kernel: usbcore: registered new driver usbfs
+jul 27 14:41:58 combo kernel: usbcore: registered new driver hub
+jul 27 14:41:58 combo kernel: usbcore: registered new driver usbfs
+jul 27 14:41:58 combo kernel: usbcore: registered new driver hub
+jul 27 14:42:00 combo kernel: real time clock driver v1.12
+jul 27 14:41:58 combo kernel: usbcore: registered new driver usbfs
+jul 27 14:41:58 combo kernel: usbcore: registered new driver hub
+jul 27 14:41:58 combo kernel: acpi: acpi tables contain no pci irq routing entries
+jul 27 14:41:58 combo kernel: acpi: acpi tables contain no pci irq routing entries
+jul 27 14:41:58 combo kernel: acpi: acpi tables contain no pci irq routing entries
+jul 27 14:41:59 combo kernel: pci: invalid acpi-pci irq routing table
+jul 27 14:41:59 combo kernel: pci: using irq router piix/ich [8086/2410] at 0000:00:1f.0
+jul 27 14:41:58 combo kernel: acpi: acpi tables contain no pci irq routing entries
+jul 27 14:41:59 combo kernel: pci: invalid acpi-pci irq routing table
+jul 27 14:41:59 combo kernel: pci: invalid acpi-pci irq routing table
+jul 27 14:41:59 combo kernel: pci: probing pci hardware
+jul 27 14:41:59 combo kernel: pci: probing pci hardware (bus 00)
+jul 27 14:41:59 combo kernel: pci: probing pci hardware
+jul 27 14:41:59 combo kernel: pci: probing pci hardware (bus 00)
+jul 27 14:41:59 combo kernel: transparent bridge - 0000:00:1e.0
+jul 27 14:41:59 combo kernel: transparent bridge - 0000:00:1e.0
+jul 27 14:41:59 combo kernel: pci: using irq router piix/ich [8086/2410] at 0000:00:1f.0
+jul 27 14:41:59 combo kernel: apm: bios version 1.2 flags 0x03 (driver version 1.16ac)
+jul 27 14:41:59 combo kernel: apm: bios version 1.2 flags 0x03 (driver version 1.16ac)
+jul 27 14:41:59 combo kernel: audit: initializing netlink socket (disabled)
+jul 27 14:41:59 combo kernel: audit: initializing netlink socket (disabled)
+jul 27 14:41:59 combo bluetooth: hcid startup succeeded
+jul 27 14:41:59 combo hcid[1690]: hci daemon ver 2.4 started
+jul 27 14:41:59 combo hcid[1690]: hci daemon ver 2.4 started
+jul 27 14:41:59 combo hcid[1690]: hci daemon ver 2.4 started
+jul 27 14:41:54 combo network: setting network parameters:  succeeded 
+jul 27 14:41:54 combo network: setting network parameters:  succeeded 
+jul 27 14:41:59 combo bluetooth: sdpd startup succeeded
+jul 27 14:41:59 combo sdpd[1696]: sdpd v1.5 started 
+jul 27 14:41:59 combo kernel: total hugetlb memory allocated, 0
+jul 27 14:41:59 combo kernel: total hugetlb memory allocated, 0
+jul 27 14:41:54 combo network: bringing up loopback interface:  succeeded 
+jul 27 14:41:54 combo network: bringing up loopback interface:  succeeded 
+jul 27 14:41:54 combo network: bringing up loopback interface:  succeeded 
+jul 27 14:42:00 combo kernel: linux agpgart interface v0.100 (c) dave jonesjul 27 14:41:59 combo kernel: vfs: disk quotas dquot_6.5.1
+jul 27 14:41:59 combo kernel: vfs: disk quotas dquot_6.5.1
+jul 27 14:41:59 combo kernel: dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+jul 27 14:41:59 combo kernel: selinux:  registering netfilter hooks
+jul 27 14:41:59 combo kernel: selinux:  registering netfilter hooks
+jul 27 14:41:59 combo kernel: initializing cryptographic api
+jul 27 14:41:59 combo kernel: initializing cryptographic api
+jul 27 14:41:59 combo kernel: pci_hotplug: pci hot plug pci core version: 0.5
+jul 27 14:41:59 combo kernel: pci_hotplug: pci hot plug pci core version: 0.5
+jul 27 14:42:00 combo kernel: isapnp: scanning for pnp cards...
+jul 27 14:42:00 combo kernel: isapnp: scanning for pnp cards...
+jul 27 14:42:00 combo kernel: isapnp: no plug & play device found
+jul 27 14:42:00 combo kernel: real time clock driver v1.12
+jul 27 14:42:00 combo kernel: real time clock driver v1.12
+jul 27 14:42:00 combo kernel: real time clock driver v1.12
+jul 27 14:42:00 combo kernel: linux agpgart interface v0.100 (c) dave jonesjul 27 14:42:00 combo kernel: linux agpgart interface v0.100 (c) dave jonesjul 27 14:42:00 combo kernel: linux agpgart interface v0.100 (c) dave jones

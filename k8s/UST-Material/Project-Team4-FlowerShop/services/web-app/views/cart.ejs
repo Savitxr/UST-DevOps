@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart | AFF</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/dashboard" class="navbar-brand">AFF</a>
+      <ul class="navbar-nav">
+        <li><a href="/product">Shop</a></li>
+        <li><a href="/customization">Customize</a></li>
+        <li><a href="/cart">Cart</a></li>
+        <li><a href="/seller">Sell</a></li>
+        <li><a href="/knowmore">About</a></li>
+        <li><a href="/auth/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-section">
+    <div class="container">
+      <h2 class="section-title">Your Cart</h2>
+      
+      <% if (success_msg && success_msg.length > 0) { %>
+        <div class="alert alert-success"><%= success_msg %></div>
+      <% } %>
+      <% if (error_msg && error_msg.length > 0) { %>
+        <div class="alert alert-error"><%= error_msg %></div>
+      <% } %>
+      
+      <% if (cartDetails && cartDetails.length > 0) { %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th class="text-right">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cartDetails.forEach(function(item) { %>
+              <% if (item.product) { %>
+                <tr>
+                  <td><%= item.product.name %></td>
+                  <td>$<%= item.product.price.toFixed(2) %></td>
+                  <td><%= item.quantity %></td>
+                  <td class="text-right">$<%= (item.product.price * item.quantity).toFixed(2) %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </tbody>
+        </table>
+        
+        <div class="cart-summary">
+          <div class="cart-total">
+            <span>Total</span>
+            <span>$<%= totalPrice.toFixed(2) %></span>
+          </div>
+          <form action="/cart/order" method="POST">
+            <button type="submit" class="btn btn-primary" style="width:100%">Place Order</button>
+          </form>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          <h3>Your Cart is Empty</h3>
+          <p>Browse our products and add some flowers</p>
+          <a href="/product" class="btn btn-primary mt-3">Shop Now</a>
+        </div>
+      <% } %>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>AFF — Cart microservice via cart-api:3003</p>
+    </div>
+  </footer>
+</body>
+</html>

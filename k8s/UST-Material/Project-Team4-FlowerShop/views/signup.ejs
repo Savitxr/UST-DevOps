@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFF | Sign Up</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:1.5rem;}
+    .signup-wrap{width:100%;max-width:460px;animation:fadeSlideUp 0.6s ease both;}
+    .flower-header{text-align:center;margin-bottom:1.8rem;}
+  </style>
+</head>
+<body>
+  <div class="petals-layer">
+    <span class="petal" style="color:var(--mint)">*</span>
+    <span class="petal" style="color:var(--lavender)">@</span>
+    <span class="petal" style="color:var(--pink)">o</span>
+    <span class="petal" style="color:var(--mint)">*</span>
+    <span class="petal" style="color:var(--gold)">.</span>
+    <span class="petal" style="color:var(--pink)">@</span>
+    <span class="petal" style="color:var(--lavender)">*</span>
+    <span class="petal" style="color:var(--mint)">o</span>
+    <span class="petal" style="color:var(--pink)">*</span>
+    <span class="petal" style="color:var(--gold)">@</span>
+    <span class="petal" style="color:var(--lavender)">.</span>
+    <span class="petal" style="color:var(--mint)">*</span>
+  </div>
+
+  <div class="page-wrap" style="width:100%;display:flex;justify-content:center;align-items:center;min-height:100vh;">
+    <div class="signup-wrap">
+
+      <div class="flower-header">
+<pre class="ascii-art mint" style="font-size:0.65rem;opacity:0.7;text-align:center;">
+  o   @   o     o   @   o     o   @   o
+ /|\ /|\ /|\   /|\ /|\ /|\   /|\ /|\ /|\
+  |   |   |     |   |   |     |   |   |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</pre>
+        <div class="section-title" style="font-size:1.8rem;">Plant Your Roots</div>
+        <p class="section-sub" style="margin-top:0.3rem;">~ CREATE YOUR GARDEN ACCOUNT ~</p>
+      </div>
+
+      <div class="glass-card">
+        <% if (success_msg && success_msg.length > 0) { %>
+          <div class="alert alert-success"><%= success_msg %></div>
+        <% } %>
+        <% if (error_msg && error_msg.length > 0) { %>
+          <div class="alert alert-danger"><%= error_msg %></div>
+        <% } %>
+
+        <form action="/auth/signup" method="POST">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" placeholder="choose_a_name" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" placeholder="you@garden.com" required>
+          </div>
+
+          <div class="ascii-divider" style="margin:1rem 0;">~ ~ ( o ) ~ ~</div>
+
+          <button type="submit" class="btn btn-mint" style="width:100%;justify-content:center;padding:0.9rem;color:#000;">
+            ~~ Begin Your Journey
+          </button>
+        </form>
+
+        <p style="text-align:center;margin-top:1.5rem;font-size:0.82rem;color:var(--text-muted);">
+          Already blooming?
+          <a href="/auth/login" style="color:var(--pink);text-decoration:none;font-weight:600;">
+            &nbsp;** Sign In
+          </a>
+        </p>
+        <div class="ascii-divider" style="margin-top:1.2rem;">~~ AFF | Abhi's Flower Fusion ~~</div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
