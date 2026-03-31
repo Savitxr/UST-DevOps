@@ -1,3 +1,37 @@
+# Step1:
+
+  install Helm package manager from debian/ubuntu - https://helm.sh/docs/intro/install/
+  -- instaLLED
+# step2:
+  --INSTALL CRDS-Kgateway from envoy proxy - 
+      - https://kgateway.dev/docs/envoy/latest/install/helm/
+
+# Step3: 
+  -- Write gateway.yaml, httproutes.yaml - https://github.com/savitxr/UST-DevOps
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # kgateway — Complete Installation & Setup Guide
  
 > **Controller:** kgateway v2.3 (Envoy-based) | **Gateway API:** v1.4.0
