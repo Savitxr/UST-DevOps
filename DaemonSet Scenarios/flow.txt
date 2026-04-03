@@ -1,0 +1,19 @@
+Step1: basic Daemon set - Behavior
+	- kubectl get pods -observe each pod in each node
+	- add a new node to the cluster and watch the the pod run in the new one
+
+step2: 
+	- run a logging image daemonset - fluentd
+		>> kubectl logs fluentbit-ch9n8 -n kube-system
+		>> kubectl debug node/<node-name> -it --image=busybox
+		>> chroot /host
+		>> cd /var/log/containers
+		>> ls
+
+step3: monitoring pod
+	>> curl http://172.31.71.128:9100/metrics
+	>> curl http://172.31.65.254:9100/metrics
+	>> curl http://172.31.64.148:9100/metrics
+
+kubectl label nodes worker-node-1 disktype=ssd
+kubectl label nodes worker-node-2 disktype=hdd
