@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kubernetes Network Policies — Complete Guide</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #21262d;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --accent3: #d29922;
+    --accent4: #f85149;
+    --accent5: #bc8cff;
+    --tag-bg: #1f2937;
+    --code-bg: #161b22;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* NAV */
+  .top-bar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .logo-icon {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, #326ce5 0%, #58a6ff 100%);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .badge {
+    background: #1e3a5f;
+    color: var(--accent);
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.1s;
+  }
+
+  /* SIDEBAR */
+  .layout { display: flex; min-height: calc(100vh - 57px); }
+  .sidebar {
+    width: 240px;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    padding: 20px 0;
+    position: sticky;
+    top: 57px;
+    height: calc(100vh - 57px);
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-section {
+    padding: 0 12px;
+    margin-bottom: 8px;
+  }
+  .sidebar-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text2);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 0 12px 6px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text2);
+    transition: all 0.15s;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+  }
+  .nav-item:hover { background: var(--bg3); color: var(--text); }
+  .nav-item.active { background: #1d3250; color: var(--accent); font-weight: 500; }
+  .nav-icon { font-size: 13px; width: 16px; text-align: center; }
+
+  /* CONTENT */
+  .content {
+    flex: 1;
+    padding: 32px 40px;
+    max-width: 900px;
+    overflow-x: hidden;
+  }
+  .section { display: none; animation: fadeIn 0.2s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+  h2 { font-size: 20px; font-weight: 600; margin: 32px 0 12px; color: var(--text); padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; color: var(--accent); }
+  h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; color: var(--text); }
+  p { margin-bottom: 12px; color: #c9d1d9; line-height: 1.7; }
+  .page-desc { color: var(--text2); font-size: 14px; margin-bottom: 28px; }
+
+  /* CODE */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 12px 0 20px;
+    position: relative;
+  }
+  code { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; }
+  pre code { color: #e6edf3; }
+  .copy-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* YAML syntax highlight tokens */
+  .k { color: #58a6ff; }   /* keys */
+  .v { color: #a5d6ff; }   /* values/strings */
+  .n { color: #3fb950; }   /* numbers/booleans */
+  .c { color: #8b949e; font-style: italic; }  /* comments */
+  .s { color: #ff7b72; }   /* special/apiVersion */
+  .p { color: #d29922; }   /* punctuation/separators */
+
+  /* CARDS */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  @media (max-width: 700px) { .card-grid { grid-template-columns: 1fr; } }
+
+  /* CALLOUT BOXES */
+  .callout {
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 14px 0;
+    border-left: 3px solid;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .callout.info { background: #0c2d4a; border-color: var(--accent); color: #a5d6ff; }
+  .callout.warn { background: #2d1f00; border-color: var(--accent3); color: #e3b341; }
+  .callout.danger { background: #2d0f0f; border-color: var(--accent4); color: #ffa198; }
+  .callout.success { background: #0d2117; border-color: var(--accent2); color: #7ee787; }
+  .callout strong { font-weight: 600; display: block; margin-bottom: 4px; }
+
+  /* EXERCISE CARDS */
+  .exercise {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .exercise-header {
+    background: var(--bg3);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .ex-num {
+    background: var(--accent);
+    color: #0d1117;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ex-title { font-size: 15px; font-weight: 600; }
+  .ex-difficulty {
+    margin-left: auto;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .diff-easy { background: #0d2117; color: var(--accent2); }
+  .diff-medium { background: #2d1f00; color: var(--accent3); }
+  .diff-hard { background: #2d0f0f; color: var(--accent4); }
+  .exercise-body { padding: 20px; }
+
+  .test-cmd {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: monospace;
+    font-size: 13px;
+    color: #3fb950;
+    margin: 6px 0;
+  }
+  .test-cmd::before { content: '$ '; color: #8b949e; }
+
+  /* TOPOLOGY DIAGRAM */
+  .topology {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+    overflow-x: auto;
+  }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-family: monospace;
+    color: var(--accent5);
+    margin: 2px;
+  }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 14px 0 20px; font-size: 13px; }
+  th { background: var(--bg3); padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text2); border: 1px solid var(--border); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+  td { padding: 10px 14px; border: 1px solid var(--border); color: #c9d1d9; vertical-align: top; }
+  tr:nth-child(even) td { background: #0a0f14; }
+
+  /* FLOW DIAGRAM */
+  .flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 16px 0; }
+  .flow-node {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 100px;
+  }
+  .flow-node.green { border-color: var(--accent2); background: #0d2117; color: var(--accent2); }
+  .flow-node.blue { border-color: var(--accent); background: #0c2d4a; color: var(--accent); }
+  .flow-node.orange { border-color: var(--accent3); background: #2d1f00; color: var(--accent3); }
+  .flow-node.red { border-color: var(--accent4); background: #2d0f0f; color: var(--accent4); }
+  .flow-arrow { font-size: 18px; color: var(--text2); padding: 0 4px; }
+  .flow-label { font-size: 11px; color: var(--text2); text-align: center; margin-top: 4px; }
+
+  /* STEP LIST */
+  .steps { list-style: none; }
+  .steps li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .steps li:last-child { border-bottom: none; }
+  .step-num {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 14px;
+    min-width: 20px;
+  }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; }
+  .checklist li {
+    padding: 6px 0;
+    color: #c9d1d9;
+    font-size: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .checklist li::before { content: '✓'; color: var(--accent2); font-weight: 700; flex-shrink: 0; }
+  .checklist li.warn::before { content: '⚠'; color: var(--accent3); }
+  .checklist li.bad::before { content: '✗'; color: var(--accent4); }
+
+  /* CMD LIST */
+  .cmd-list { list-style: none; }
+  .cmd-list li {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .cmd-list li code { color: #3fb950; font-family: monospace; }
+  .cmd-desc { color: var(--text2); font-size: 12px; margin-top: 3px; }
+
+  /* SEPARATOR */
+  hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* PILL TABS */
+  .pill-tabs { display: flex; gap: 8px; margin: 20px 0 16px; flex-wrap: wrap; }
+  .pill-tab {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--text2);
+    transition: all 0.15s;
+  }
+  .pill-tab.active { background: #1d3250; color: var(--accent); border-color: var(--accent); }
+
+  /* INLINE CODE */
+  .inline-code {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: monospace;
+    font-size: 13px;
+    color: var(--accent5);
+  }
+
+  .toc-item {
+    display: flex; justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 14px;
+    color: #c9d1d9;
+    transition: color 0.15s;
+  }
+  .toc-item:hover { color: var(--accent); }
+  .toc-num { color: var(--text2); font-size: 12px; }
+
+  .arch-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+  .arch-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 110px;
+  }
+  .arch-box.fe { border-color: #58a6ff; background: #0c2d4a; color: #58a6ff; }
+  .arch-box.be { border-color: #3fb950; background: #0d2117; color: #3fb950; }
+  .arch-box.db { border-color: #d29922; background: #2d1f00; color: #d29922; }
+  .arch-box.ext { border-color: #8b949e; background: #1c2128; color: #8b949e; }
+  .arch-box.ing { border-color: #bc8cff; background: #1e1040; color: #bc8cff; }
+  .arch-box.cache { border-color: #f85149; background: #2d0f0f; color: #f85149; }
+  .arch-arrow { color: var(--text2); padding: 0 8px; font-size: 18px; }
+  .arch-arrow.blocked { color: var(--accent4); }
+  .arch-arrow.allowed { color: var(--accent2); }
+
+  /* small helper */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="logo">
+    <div class="logo-icon">☸</div>
+    Kubernetes Network Policies
+  </div>
+  <span class="badge">Complete Guide</span>
+  <span style="margin-left:auto;font-size:12px;color:var(--text2)">For CS Students & DevOps Engineers</span>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Navigation</div>
+    <div class="sidebar-section">
+      <button class="nav-item active" onclick="showSection('overview', this)">
+        <span class="nav-icon">📖</span> Overview
+      </button>
+      <button class="nav-item" onclick="showSection('concepts', this)">
+        <span class="nav-icon">🧠</span> Core Concepts
+      </button>
+      <button class="nav-item" onclick="showSection('exercises', this)">
+        <span class="nav-icon">🏋️</span> Exercises (4–6)
+      </button>
+      <button class="nav-item" onclick="showSection('project', this)">
+        <span class="nav-icon">🛒</span> E-Commerce Project
+      </button>
+      <button class="nav-item" onclick="showSection('debugging', this)">
+        <span class="nav-icon">🔍</span> Debugging
+      </button>
+      <button class="nav-item" onclick="showSection('bestpractices', this)">
+        <span class="nav-icon">✅</span> Best Practices
+      </button>
+      <button class="nav-item" onclick="showSection('advanced', this)">
+        <span class="nav-icon">🚀</span> Advanced Topics
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+
+    <!-- ============================================================
+         SECTION 1: OVERVIEW
+    ============================================================ -->
+    <div id="section-overview" class="section active">
+      <h1>Kubernetes Network Policies</h1>
+      <p class="page-desc">A practical, project-oriented deep-dive — from zero-trust fundamentals to e-commerce production setup.</p>
+
+      <div class="toc-item" onclick="showSection('overview', document.querySelector('.nav-item'))">
+        <span>📖 1. Conceptual Overview</span><span class="toc-num">What & Why</span>
+      </div>
+      <div class="toc-item" onclick="showSection('concepts', document.querySelectorAll('.nav-item')[1])">
+        <span>🧠 2. Core Concepts Breakdown</span><span class="toc-num">Ingress, Egress, Labels</span>
+      </div>
+      <div class="toc-item" onclick="showSection('exercises', document.querySelectorAll('.nav-item')[2])">
+        <span>🏋️ 3. Hands-On Exercises (6)</span><span class="toc-num">Progressive difficulty</span>
+      </div>
+      <div class="toc-item" onclick="showSection('project', document.querySelectorAll('.nav-item')[3])">
+        <span>🛒 4. E-Commerce Mini Project</span><span class="toc-num">Full policy setup</span>
+      </div>
+      <div class="toc-item" onclick="showSection('debugging', document.querySelectorAll('.nav-item')[4])">
+        <span>🔍 5. Debugging & Troubleshooting</span><span class="toc-num">kubectl commands</span>
+      </div>
+      <div class="toc-item" onclick="showSection('bestpractices', document.querySelectorAll('.nav-item')[5])">
+        <span>✅ 6. Best Practices</span><span class="toc-num">Production-ready</span>
+      </div>
+      <div class="toc-item" onclick="showSection('advanced', document.querySelectorAll('.nav-item')[6])">
+        <span>🚀 7. Advanced Topics</span><span class="toc-num">Namespaces, Istio, DNS</span>
+      </div>
+
+      <h2>What are Network Policies?</h2>
+      <p>By default, Kubernetes allows <strong>all pods to communicate with all other pods</strong> across the cluster — no restrictions. A Network Policy is a Kubernetes resource that acts like a <em>firewall ruleset</em> at the pod level, controlling which pods (or namespaces, or external IPs) can send traffic to or from specific pods.</p>
+
+      <div class="callout info">
+        <strong>Analogy</strong> Think of your cluster as an office building. By default, every door is unlocked and everyone can walk anywhere. A NetworkPolicy is your keycard access system — it locks everything, then explicitly says "the frontend team can enter the backend room."
+      </div>
+
+      <h2>Why They Matter in Real-World Clusters</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">🔒 Security Isolation</div>
+          <p style="font-size:13px;color:var(--text2)">If a pod is compromised, an attacker can't laterally move to your database or internal services without explicitly allowed paths.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🎯 Zero-Trust Networking</div>
+          <p style="font-size:13px;color:var(--text2)">Never trust, always verify. Every pod must earn access. Default-deny-all then explicitly allow needed traffic.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🏢 Multi-Tenant Compliance</div>
+          <p style="font-size:13px;color:var(--text2)">In shared clusters (HIPAA, PCI-DSS), isolate tenant namespaces so workloads can never bleed across boundaries.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🐛 Blast Radius Reduction</div>
+          <p style="font-size:13px;color:var(--text2)">A bug in your payment service can't accidentally call your auth service if no network policy permits it.</p>
+        </div>
+      </div>
+
+      <h2>How They Work — The Building Blocks</h2>
+      <p>A NetworkPolicy selects pods via <span class="inline-code">podSelector</span>, then defines <span class="inline-code">ingress</span> (incoming) and/or <span class="inline-code">egress</span> (outgoing) rules. Each rule can filter by:</p>
+
+      <table>
+        <tr><th>Selector Type</th><th>What It Targets</th><th>Example Use Case</th></tr>
+        <tr><td><code>podSelector</code></td><td>Pods within the same namespace by labels</td><td>Allow only <code>app=frontend</code> to reach <code>app=backend</code></td></tr>
+        <tr><td><code>namespaceSelector</code></td><td>All pods from a specific namespace</td><td>Allow monitoring namespace to scrape metrics</td></tr>
+        <tr><td><code>ipBlock</code> (CIDR)</td><td>External IP ranges</td><td>Allow only company VPN IP range (10.0.0.0/8)</td></tr>
+        <tr><td><code>ports</code></td><td>Specific port + protocol</td><td>Only allow TCP:5432 for PostgreSQL connections</td></tr>
+      </table>
+
+      <h2>Anatomy of a Network Policy YAML</h2>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: allow-frontend-to-backend</span>
+  <span class="k">namespace</span><span class="v">: ecommerce</span>         <span class="c"># scope: this namespace only</span>
+
+<span class="s">spec</span><span class="k">:</span>
+  <span class="c"># 1. Which pods does this policy APPLY TO? (the "target")</span>
+  <span class="k">podSelector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: backend</span>              <span class="c"># this policy governs backend pods</span>
+
+  <span class="c"># 2. Which traffic directions are we controlling?</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>                  <span class="c"># we're controlling INCOMING traffic</span>
+
+  <span class="c"># 3. Define WHAT is allowed in</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app</span><span class="v">: frontend</span>     <span class="c"># ONLY pods labeled app=frontend</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- protocol</span><span class="v">: TCP</span>
+          <span class="k">port</span><span class="n">: 8080</span>            <span class="c"># only on port 8080</span></code></pre>
+
+      <div class="callout warn">
+        <strong>⚠ CNI Plugin Requirement</strong> Network Policies are just Kubernetes API objects — they do nothing without a CNI plugin that enforces them. Vanilla cluster CNIs like <code>flannel</code> do NOT enforce policies. You need <strong>Calico</strong>, <strong>Cilium</strong>, <strong>Weave</strong>, or <strong>Antrea</strong>. Most managed clusters (EKS, GKE, AKS) have this pre-configured.
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SECTION 2: CORE CONCEPTS
+    ============================================================ -->
+    <div id="section-concepts" class="section">
+      <h1>Core Concepts Breakdown</h1>
+      <p class="page-desc">The mechanics behind ingress/egress rules, default behaviors, label selection, and CNI plugins.</p>
+
+      <h2>Ingress vs. Egress</h2>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title" style="color:var(--accent)">⬇ Ingress (Incoming Traffic)</div>
+          <p style="font-size:13px;color:var(--text2)">Controls WHO can send traffic TO the selected pods. Think: "Who is allowed to knock on my door?"</p>
+          <p style="font-size:13px;color:var(--text2);margin-top:8px;">Use case: Allow only frontend pods to call the backend API on port 8080.</p>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent3)">⬆ Egress (Outgoing Traffic)</div>
+          <p style="font-size:13px;color:var(--text2)">Controls WHERE the selected pods can send traffic. Think: "Which doors can my pod walk through?"</p>
+          <p style="font-size:13px;color:var(--text2);margin-top:8px;">Use case: Prevent backend pods from calling anything except the DB on port 5432.</p>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <strong>Key mental model</strong> If you declare <code>policyTypes: [Ingress]</code> on a policy, that policy controls <em>only</em> incoming traffic to the selected pods. Any ingress NOT matching an allow rule is dropped. But egress is still wide open unless you also write an Egress policy (or declare both in one policy).
+      </div>
+
+      <h2>Default Allow vs Default Deny</h2>
+      <p>This is the most important concept to internalize early:</p>
+
+      <table>
+        <tr><th>Scenario</th><th>Behavior</th></tr>
+        <tr><td>No NetworkPolicy selects a pod</td><td>All ingress AND egress allowed (open by default)</td></tr>
+        <tr><td>A NetworkPolicy selects a pod (Ingress)</td><td>ALL ingress blocked except rules in that policy. Egress still open.</td></tr>
+        <tr><td>A NetworkPolicy selects a pod (Egress)</td><td>ALL egress blocked except rules in that policy. Ingress still open.</td></tr>
+        <tr><td>Both Ingress + Egress policies select a pod</td><td>Both directions are locked down — pure whitelist mode</td></tr>
+      </table>
+
+      <h3>The Default-Deny-All Pattern (Zero Trust Baseline)</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># Step 1: Lock everything down</span>
+<span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: default-deny-all</span>
+  <span class="k">namespace</span><span class="v">: ecommerce</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">: {}</span>    <span class="c"># empty = matches ALL pods in namespace</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+    <span class="k">-</span><span class="v"> Egress</span>
+  <span class="c"># no ingress/egress rules = deny everything</span></code></pre>
+      <p>After applying this, <strong>all pods in the namespace are completely isolated</strong>. Then you add individual allow-rules one by one.</p>
+
+      <h2>Label-Based Selection (The Heart of Network Policies)</h2>
+      <p>Network Policies are entirely driven by pod labels. This is why label hygiene is critical in production.</p>
+
+      <h3>Single Label Match</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="k">podSelector</span><span class="v">:</span>
+  <span class="k">matchLabels</span><span class="v">:</span>
+    <span class="k">app</span><span class="v">: backend</span>         <span class="c"># exact match: app must equal "backend"</span></code></pre>
+
+      <h3>Multi-Label AND Match</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="k">podSelector</span><span class="v">:</span>
+  <span class="k">matchLabels</span><span class="v">:</span>
+    <span class="k">app</span><span class="v">: backend</span>
+    <span class="k">tier</span><span class="v">: api</span>            <span class="c"># BOTH labels must match (AND logic)</span></code></pre>
+
+      <h3>In Ingress Rules: AND vs OR between from[] items</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># CASE 1: This is an AND (same list item) — BOTH conditions must be true</span>
+<span class="c"># (Pod labeled app=frontend) AND (from namespace labeled env=prod)</span>
+<span class="k">ingress</span><span class="v">:</span>
+  <span class="k">- from</span><span class="v">:</span>
+      <span class="k">- namespaceSelector</span><span class="v">:</span>
+          <span class="k">matchLabels</span><span class="v">:</span>
+            <span class="k">env</span><span class="v">: prod</span>
+        <span class="k">podSelector</span><span class="v">:</span>      <span class="c"># same dash level = AND</span>
+          <span class="k">matchLabels</span><span class="v">:</span>
+            <span class="k">app</span><span class="v">: frontend</span>
+
+<span class="p">---</span>
+
+<span class="c"># CASE 2: This is an OR (separate list items) — EITHER condition is enough</span>
+<span class="c"># (Any pod in namespace env=prod) OR (Any pod labeled app=frontend)</span>
+<span class="k">ingress</span><span class="v">:</span>
+  <span class="k">- from</span><span class="v">:</span>
+      <span class="k">- namespaceSelector</span><span class="v">:</span>  <span class="c"># separate dash = OR</span>
+          <span class="k">matchLabels</span><span class="v">:</span>
+            <span class="k">env</span><span class="v">: prod</span>
+      <span class="k">- podSelector</span><span class="v">:</span>        <span class="c"># separate dash = OR</span>
+          <span class="k">matchLabels</span><span class="v">:</span>
+            <span class="k">app</span><span class="v">: frontend</span></code></pre>
+
+      <div class="callout danger">
+        <strong>🚨 Most common beginner mistake!</strong> The AND vs OR distinction (same dash vs separate dash in the <code>from[]</code> array) is the #1 source of confusion. Draw it out when writing complex rules.
+      </div>
+
+      <h2>How CNI Plugins Enforce Policies</h2>
+      <table>
+        <tr><th>CNI Plugin</th><th>Enforces NetworkPolicy?</th><th>Extra Capabilities</th><th>Common Platform</th></tr>
+        <tr><td><strong>Calico</strong></td><td>✅ Yes</td><td>GlobalNetworkPolicy, HostEndpoint rules</td><td>EKS, GKE, bare-metal</td></tr>
+        <tr><td><strong>Cilium</strong></td><td>✅ Yes (eBPF)</td><td>L7 HTTP/gRPC policies, Hubble observability</td><td>GKE Dataplane v2, EKS</td></tr>
+        <tr><td><strong>Weave</strong></td><td>✅ Yes</td><td>Standard only</td><td>Self-managed</td></tr>
+        <tr><td><strong>Antrea</strong></td><td>✅ Yes</td><td>ClusterNetworkPolicy, NodeNetworkPolicy</td><td>vSphere / Tanzu</td></tr>
+        <tr><td><strong>Flannel</strong></td><td>❌ No</td><td>Basic networking only</td><td>Minikube (default)</td></tr>
+        <tr><td><strong>kubenet</strong></td><td>❌ No</td><td>Basic networking only</td><td>AKS default (old)</td></tr>
+      </table>
+
+      <div class="callout success">
+        <strong>For local development</strong>: Use <code>minikube start --cni=calico</code> or <code>kind</code> with Calico/Cilium installed to test network policies locally.
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SECTION 3: EXERCISES
+    ============================================================ -->
+    <div id="section-exercises" class="section">
+      <h1>Hands-On Exercises</h1>
+      <p class="page-desc">Six progressively harder exercises. Start with Exercise 1 and work your way to 6.</p>
+
+      <div class="callout info">
+        <strong>Setup before starting</strong> Create a test namespace with a CNI that supports NetworkPolicy:<br>
+        <code>kubectl create namespace netpol-demo</code><br>
+        <code>kubectl label namespace netpol-demo env=test</code><br>
+        Then deploy test pods: <code>kubectl run frontend --image=nginx --labels="app=frontend" -n netpol-demo</code>
+      </div>
+
+      <!-- EXERCISE 1 -->
+      <div class="exercise">
+        <div class="exercise-header">
+          <div class="ex-num">1</div>
+          <div>
+            <div class="ex-title">Default Deny All — Lock the Namespace</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:2px;">Goal: Isolate all pods in a namespace so nothing talks to anything</div>
+          </div>
+          <span class="ex-difficulty diff-easy">Beginner</span>
+        </div>
+        <div class="exercise-body">
+          <h4>What you'll learn</h4>
+          <p>Applying a default-deny baseline — the foundation of every secure namespace.</p>
+
+          <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># ex1-default-deny.yaml</span>
+<span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: default-deny-all</span>
+  <span class="k">namespace</span><span class="v">: netpol-demo</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">: {}</span>     <span class="c"># {} = selects ALL pods</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+    <span class="k">-</span><span class="v"> Egress</span></code></pre>
+
+          <h4>Apply & Test</h4>
+          <div class="test-cmd">kubectl apply -f ex1-default-deny.yaml</div>
+          <div class="test-cmd">kubectl run busybox --image=busybox:1.28 --rm -it -n netpol-demo -- wget -qO- http://frontend</div>
+
+          <div class="callout danger"><strong>Expected result:</strong> Connection hangs or times out. All traffic is now blocked. wget fails — you've confirmed the policy is enforced.</div>
+
+          <h4>Verify policy is applied</h4>
+          <div class="test-cmd">kubectl get networkpolicy -n netpol-demo</div>
+          <div class="test-cmd">kubectl describe networkpolicy default-deny-all -n netpol-demo</div>
+        </div>
+      </div>
+
+      <!-- EXERCISE 2 -->
+      <div class="exercise">
+        <div class="exercise-header">
+          <div class="ex-num">2</div>
+          <div>
+            <div class="ex-title">Allow Frontend → Backend on Port 8080</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:2px;">Goal: Only the frontend pod can talk to the backend, on a specific port</div>
+          </div>
+          <span class="ex-difficulty diff-easy">Beginner</span>
+        </div>
+        <div class="exercise-body">
+          <h4>Setup</h4>
+          <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># Deploy test pods first</span>
+kubectl run frontend --image=nginx --labels="app=frontend,tier=web" -n netpol-demo
+kubectl run backend  --image=nginx --labels="app=backend,tier=api"  -n netpol-demo
+kubectl run intruder --image=nginx --labels="app=intruder"          -n netpol-demo</code></pre>
+
+          <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># ex2-allow-frontend-to-backend.yaml</span>
+<span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: allow-frontend-to-backend</span>
+  <span class="k">namespace</span><span class="v">: netpol-demo</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: backend</span>           <span class="c"># this policy protects the backend</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app</span><span class="v">: frontend</span>   <span class="c"># ONLY frontend pods allowed</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- protocol</span><span class="v">: TCP</span>
+          <span class="k">port</span><span class="n">: 8080</span>          <span class="c"># only on this port</span></code></pre>
+
+          <h4>Test</h4>
+          <p>Get the backend pod IP first:</p>
+          <div class="test-cmd">kubectl get pod backend -n netpol-demo -o wide</div>
+          <p>From <strong>frontend</strong> pod (should succeed):</p>
+          <div class="test-cmd">kubectl exec frontend -n netpol-demo -- wget -qO- http://&lt;backend-ip&gt;:8080 --timeout=3</div>
+          <p>From <strong>intruder</strong> pod (should be blocked):</p>
+          <div class="test-cmd">kubectl exec intruder -n netpol-demo -- wget -qO- http://&lt;backend-ip&gt;:8080 --timeout=3</div>
+
+          <div class="callout success"><strong>Expected:</strong> frontend succeeds (200 OK), intruder times out. Your first whitelist rule works!</div>
+        </div>
+      </div>
+
+      <!-- EXERCISE 3 -->
+      <div class="exercise">
+        <div class="exercise-header">
+          <div class="ex-num">3</div>
+          <div>
+            <div class="ex-title">Egress: Restrict Backend to Only Talk to the Database</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:2px;">Goal: The backend pod can only send traffic OUT to PostgreSQL on port 5432</div>
+          </div>
+          <span class="ex-difficulty diff-medium">Intermediate</span>
+        </div>
+        <div class="exercise-body">
+          <div class="callout warn"><strong>Important:</strong> Remember to also allow egress to kube-dns (UDP/TCP port 53) — otherwise your pod can't resolve service names!</div>
+
+          <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># ex3-backend-egress.yaml</span>
+<span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: backend-egress-only-db</span>
+  <span class="k">namespace</span><span class="v">: netpol-demo</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: backend</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Egress</span>
+  <span class="k">egress</span><span class="v">:</span>
+    <span class="c"># Rule 1: Allow DNS lookups (critical — don't forget this!)</span>
+    <span class="k">- to</span><span class="v">:</span>
+        <span class="k">- namespaceSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">kubernetes.io/metadata.name</span><span class="v">: kube-system</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- protocol</span><span class="v">: UDP</span>
+          <span class="k">port</span><span class="n">: 53</span>
+        <span class="k">- protocol</span><span class="v">: TCP</span>
+          <span class="k">port</span><span class="n">: 53</span>
+
+    <span class="c"># Rule 2: Allow connection to database on port 5432</span>
+    <span class="k">- to</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app</span><span class="v">: postgres</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- protocol</span><span class="v">: TCP</span>
+          <span class="k">port</span><span class="n">: 5432</span></code></pre>
+
+          <h4>Test</h4>
+          <div class="test-cmd">kubectl exec backend -n netpol-demo -- nc -zv &lt;postgres-ip&gt; 5432</div>
+          <div class="test-cmd">kubectl exec backend -n netpol-demo -- nc -zv google.com 443</div>
+          <div class="callout success"><strong>Expected:</strong> DB connection succeeds. Internet access (google.com) is blocked. Backend is now "egress jailed."</div>
+        </div>
+      </div>
+
+      <!-- EXERCISE 4 -->
+      <div class="exercise">
+        <div class="exercise-header">
+          <div class="ex-num">4</div>
+          <div>
+            <div class="ex-title">Namespace Isolation — Prevent Cross-Namespace Leakage</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:2px;">Goal: Pods in namespace "team-a" cannot communicate with pods in "team-b"</div>
+          </div>
+          <span class="ex-difficulty diff-medium">Intermediate</span>
+        </div>
+        <div class="exercise-body">
+          <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># Setup two namespaces</span>
+kubectl create namespace team-a
+kubectl create namespace team-b
+kubectl label namespace team-a team=a
+kubectl label namespace team-b team=b</code></pre>
+
+          <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># ex4-namespace-isolation.yaml</span>
+<span class="c"># Apply this in BOTH namespaces (change namespace field for each)</span>
+<span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: deny-other-namespaces</span>
+  <span class="k">namespace</span><span class="v">: team-a</span>              <span class="c"># also apply to team-b</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">: {}</span>                 <span class="c"># all pods in this namespace</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="c"># Only allow ingress from pods within the SAME namespace</span>
+        <span class="k">- podSelector</span><span class="v">: {}</span>          <span class="c"># {} = all pods</span>
+          <span class="c"># Note: namespaceSelector omitted = same namespace only</span></code></pre>
+
+          <div class="callout info">
+            <strong>Why no namespaceSelector?</strong> When only <code>podSelector</code> is present in a <code>from</code> entry, it matches pods in the <em>same namespace</em> as the policy. This elegantly creates namespace isolation.
+          </div>
+
+          <h4>Test</h4>
+          <div class="test-cmd">kubectl run pod-a --image=busybox:1.28 -n team-a -- sleep 3600</div>
+          <div class="test-cmd">kubectl run pod-b --image=busybox:1.28 -n team-b -- sleep 3600</div>
+          <div class="test-cmd">kubectl exec pod-a -n team-a -- wget -qO- http://&lt;pod-b-ip&gt; --timeout=3</div>
+          <div class="callout danger"><strong>Expected:</strong> Cross-namespace connection from team-a to team-b is blocked.</div>
+        </div>
+      </div>
+
+      <!-- EXERCISE 5 -->
+      <div class="exercise">
+        <div class="exercise-header">
+          <div class="ex-num">5</div>
+          <div>
+            <div class="ex-title">CIDR-Based External Traffic Control</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:2px;">Goal: Allow a backend pod to reach an external payment API but block all other internet</div>
+          </div>
+          <span class="ex-difficulty diff-medium">Intermediate</span>
+        </div>
+        <div class="exercise-body">
+          <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># ex5-cidr-egress.yaml</span>
+<span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: backend-allow-payment-api</span>
+  <span class="k">namespace</span><span class="v">: netpol-demo</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: backend</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Egress</span>
+  <span class="k">egress</span><span class="v">:</span>
+    <span class="c"># DNS (always needed)</span>
+    <span class="k">- ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 53</span>
+          <span class="k">protocol</span><span class="v">: UDP</span>
+        <span class="k">- port</span><span class="n">: 53</span>
+          <span class="k">protocol</span><span class="v">: TCP</span>
+
+    <span class="c"># Allow HTTPS to Stripe payment API IP range (example)</span>
+    <span class="k">- to</span><span class="v">:</span>
+        <span class="k">- ipBlock</span><span class="v">:</span>
+            <span class="k">cidr</span><span class="v">: 54.187.174.0/24</span>    <span class="c"># Stripe IP range (example)</span>
+            <span class="k">except</span><span class="v">:</span>
+              <span class="k">-</span><span class="v"> 54.187.174.64/30</span>    <span class="c"># exclude a specific sub-range</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- protocol</span><span class="v">: TCP</span>
+          <span class="k">port</span><span class="n">: 443</span>
+
+    <span class="c"># Allow internal cluster traffic</span>
+    <span class="k">- to</span><span class="v">:</span>
+        <span class="k">- ipBlock</span><span class="v">:</span>
+            <span class="k">cidr</span><span class="v">: 10.0.0.0/8</span>         <span class="c"># internal cluster CIDRs</span></code></pre>
+
+          <div class="callout warn">
+            <strong>Real-world tip:</strong> Payment providers like Stripe, PayPal publish their IP ranges. Always check their docs for official CIDRs to use in <code>ipBlock</code>.
+          </div>
+        </div>
+      </div>
+
+      <!-- EXERCISE 6 -->
+      <div class="exercise">
+        <div class="exercise-header">
+          <div class="ex-num">6</div>
+          <div>
+            <div class="ex-title">Ingress Controller Gateway Pattern (Advanced)</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:2px;">Goal: Only the Nginx ingress controller can talk to the frontend. Block all direct pod access.</div>
+          </div>
+          <span class="ex-difficulty diff-hard">Advanced</span>
+        </div>
+        <div class="exercise-body">
+          <p>This pattern ensures all external traffic flows through the ingress controller — a real production requirement.</p>
+
+          <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># First, label your ingress-nginx namespace</span>
+kubectl label namespace ingress-nginx kubernetes.io/metadata.name=ingress-nginx</code></pre>
+
+          <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># ex6-ingress-controller-only.yaml</span>
+<span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: allow-ingress-controller-only</span>
+  <span class="k">namespace</span><span class="v">: ecommerce</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: frontend</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="c"># Allow ONLY from the ingress-nginx namespace</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- namespaceSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">kubernetes.io/metadata.name</span><span class="v">: ingress-nginx</span>
+          <span class="k">podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app.kubernetes.io/name</span><span class="v">: ingress-nginx</span>  <span class="c"># AND from the ingress pods</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- protocol</span><span class="v">: TCP</span>
+          <span class="k">port</span><span class="n">: 3000</span>              <span class="c"># your frontend's service port</span></code></pre>
+
+          <h4>Test end-to-end</h4>
+          <div class="test-cmd">curl -H "Host: myapp.example.com" http://&lt;ingress-ip&gt;/</div>
+          <div class="test-cmd">kubectl exec busybox -n ecommerce -- wget -qO- http://&lt;frontend-clusterip&gt;:3000 --timeout=3</div>
+          <div class="callout success"><strong>Expected:</strong> curl via ingress works (traffic flows correctly). Direct pod-to-frontend wget is blocked — external access is forced through the ingress controller.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SECTION 4: PROJECT
+    ============================================================ -->
+    <div id="section-project" class="section">
+      <h1>E-Commerce Project Integration</h1>
+      <p class="page-desc">Apply zero-trust Network Policies to a real microservices architecture.</p>
+
+      <h2>Architecture Overview</h2>
+      <div class="topology">
+        <p style="text-align:center;color:var(--text2);font-size:12px;margin-bottom:16px;">Traffic flow in the secured e-commerce app</p>
+        <div class="arch-row">
+          <div class="arch-box ext">Internet / Users</div>
+          <div class="arch-arrow allowed">→</div>
+          <div class="arch-box ing">Ingress Controller<br><small style="font-size:10px">ingress-nginx ns</small></div>
+          <div class="arch-arrow allowed">→</div>
+          <div class="arch-box fe">Frontend<br><small style="font-size:10px">:3000</small></div>
+        </div>
+        <div style="text-align:center;color:var(--accent2);font-size:20px;margin:4px 0;">↓</div>
+        <div class="arch-row">
+          <div class="arch-box be">Backend API<br><small style="font-size:10px">:8080</small></div>
+          <div class="arch-arrow blocked">✗</div>
+          <div class="arch-box fe" style="opacity:0.4">Frontend</div>
+          <span style="color:var(--text2);font-size:12px;margin-left:8px;">(backend cannot call frontend)</span>
+        </div>
+        <div style="text-align:center;color:var(--accent2);font-size:20px;margin:4px 0;">↓ ↓</div>
+        <div class="arch-row">
+          <div class="arch-box db">PostgreSQL<br><small style="font-size:10px">:5432</small></div>
+          <div style="padding:0 16px;color:var(--text2);font-size:12px;align-self:center;">and</div>
+          <div class="arch-box cache">Redis Cache<br><small style="font-size:10px">:6379</small></div>
+          <div class="arch-arrow blocked" style="margin-left:16px;">✗ Frontend → DB</div>
+        </div>
+      </div>
+
+      <h2>Step 1: Create the Namespace</h2>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>kubectl create namespace ecommerce
+kubectl label namespace ecommerce env=production app=ecommerce</code></pre>
+
+      <h2>Step 2: Deploy Services with Correct Labels</h2>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># Always use structured, consistent labels — this enables precise policy targeting</span>
+<span class="c"># Each deployment should have these labels in spec.template.metadata.labels:</span>
+
+<span class="c"># frontend:  app=frontend, tier=web,      component=ui</span>
+<span class="c"># backend:   app=backend,  tier=api,      component=rest</span>
+<span class="c"># postgres:  app=postgres, tier=database, component=storage</span>
+<span class="c"># redis:     app=redis,    tier=cache,    component=storage</span></code></pre>
+
+      <h2>Step 3: Apply the Full Policy Suite</h2>
+
+      <h3>Policy 1 — Default Deny Everything</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: default-deny-all</span>
+  <span class="k">namespace</span><span class="v">: ecommerce</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">: {}</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+    <span class="k">-</span><span class="v"> Egress</span></code></pre>
+
+      <h3>Policy 2 — Frontend: Accept from Ingress Controller Only</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: frontend-ingress</span>
+  <span class="k">namespace</span><span class="v">: ecommerce</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: frontend</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+    <span class="k">-</span><span class="v"> Egress</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- namespaceSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">kubernetes.io/metadata.name</span><span class="v">: ingress-nginx</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 3000</span>
+  <span class="k">egress</span><span class="v">:</span>
+    <span class="c"># DNS</span>
+    <span class="k">- ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 53</span>
+          <span class="k">protocol</span><span class="v">: UDP</span>
+    <span class="c"># Call backend API</span>
+    <span class="k">- to</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app</span><span class="v">: backend</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 8080</span></code></pre>
+
+      <h3>Policy 3 — Backend: Accept from Frontend, Egress to DB + Redis</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: backend-policy</span>
+  <span class="k">namespace</span><span class="v">: ecommerce</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: backend</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+    <span class="k">-</span><span class="v"> Egress</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app</span><span class="v">: frontend</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 8080</span>
+  <span class="k">egress</span><span class="v">:</span>
+    <span class="c"># DNS</span>
+    <span class="k">- ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 53</span>
+          <span class="k">protocol</span><span class="v">: UDP</span>
+        <span class="k">- port</span><span class="n">: 53</span>
+          <span class="k">protocol</span><span class="v">: TCP</span>
+    <span class="c"># Postgres</span>
+    <span class="k">- to</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app</span><span class="v">: postgres</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 5432</span>
+    <span class="c"># Redis</span>
+    <span class="k">- to</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app</span><span class="v">: redis</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 6379</span>
+    <span class="c"># External payment API (Stripe example)</span>
+    <span class="k">- to</span><span class="v">:</span>
+        <span class="k">- ipBlock</span><span class="v">:</span>
+            <span class="k">cidr</span><span class="v">: 54.187.174.0/24</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 443</span></code></pre>
+
+      <h3>Policy 4 — Database: Only Backend Can Connect</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: postgres-lockdown</span>
+  <span class="k">namespace</span><span class="v">: ecommerce</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: postgres</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app</span><span class="v">: backend</span>      <span class="c"># ONLY backend can connect to postgres</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 5432</span>
+<span class="p">---</span>
+<span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: redis-lockdown</span>
+  <span class="k">namespace</span><span class="v">: ecommerce</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: redis</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app</span><span class="v">: backend</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 6379</span></code></pre>
+
+      <h3>Policy 5 — Allow Prometheus Monitoring Scrape</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: allow-prometheus-scrape</span>
+  <span class="k">namespace</span><span class="v">: ecommerce</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">: {}</span>               <span class="c"># all pods expose metrics</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- namespaceSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">kubernetes.io/metadata.name</span><span class="v">: monitoring</span>
+          <span class="k">podSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">app</span><span class="v">: prometheus</span>
+      <span class="k">ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 9090</span>              <span class="c"># metrics port</span></code></pre>
+
+      <h2>Complete Policy Matrix</h2>
+      <table>
+        <tr><th>Source</th><th>Destination</th><th>Port</th><th>Allowed?</th></tr>
+        <tr><td>Internet</td><td>Ingress Controller</td><td>80/443</td><td style="color:var(--accent2)">✓ Yes</td></tr>
+        <tr><td>Ingress Controller</td><td>Frontend</td><td>3000</td><td style="color:var(--accent2)">✓ Yes</td></tr>
+        <tr><td>Frontend</td><td>Backend</td><td>8080</td><td style="color:var(--accent2)">✓ Yes</td></tr>
+        <tr><td>Frontend</td><td>Database</td><td>5432</td><td style="color:var(--accent4)">✗ Blocked</td></tr>
+        <tr><td>Frontend</td><td>Redis</td><td>6379</td><td style="color:var(--accent4)">✗ Blocked</td></tr>
+        <tr><td>Backend</td><td>Database</td><td>5432</td><td style="color:var(--accent2)">✓ Yes</td></tr>
+        <tr><td>Backend</td><td>Redis</td><td>6379</td><td style="color:var(--accent2)">✓ Yes</td></tr>
+        <tr><td>Backend</td><td>Stripe API</td><td>443</td><td style="color:var(--accent2)">✓ Yes (CIDR)</td></tr>
+        <tr><td>Backend</td><td>Internet (other)</td><td>any</td><td style="color:var(--accent4)">✗ Blocked</td></tr>
+        <tr><td>Database</td><td>anywhere</td><td>any</td><td style="color:var(--accent4)">✗ Blocked</td></tr>
+        <tr><td>Prometheus</td><td>All pods (:9090)</td><td>9090</td><td style="color:var(--accent2)">✓ Yes</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================
+         SECTION 5: DEBUGGING
+    ============================================================ -->
+    <div id="section-debugging" class="section">
+      <h1>Debugging & Troubleshooting</h1>
+      <p class="page-desc">Common mistakes, verification strategies, and the kubectl commands you'll use daily.</p>
+
+      <h2>Common Beginner Mistakes</h2>
+
+      <div class="card">
+        <div class="card-title" style="color:var(--accent4)">❌ Mistake 1: Forgetting DNS Egress</div>
+        <p style="font-size:13px;color:var(--text2)">You lock down egress but forget to allow port 53. Your pod can't resolve <code>postgres-service</code> to an IP and silently fails.</p>
+        <div class="callout warn" style="margin-top:8px">
+          <strong>Fix:</strong> Always add a DNS egress rule to every egress policy: allow UDP+TCP port 53 to kube-system or allow it globally on port 53.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="color:var(--accent4)">❌ Mistake 2: AND vs OR Confusion in from[]</div>
+        <p style="font-size:13px;color:var(--text2)">Putting <code>namespaceSelector</code> and <code>podSelector</code> as <em>separate</em> items when you meant the combination — accidentally allowing entire namespaces.</p>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># WRONG — this allows ALL pods in prod-ns OR all pods named frontend</span>
+<span class="k">- from</span><span class="v">:</span>
+    <span class="k">- namespaceSelector</span><span class="v">:</span>
+        <span class="k">matchLabels</span><span class="v">:</span>
+          <span class="k">env</span><span class="v">: prod</span>
+    <span class="k">- podSelector</span><span class="v">:</span>
+        <span class="k">matchLabels</span><span class="v">:</span>
+          <span class="k">app</span><span class="v">: frontend</span>
+
+<span class="c"># CORRECT — only frontend pods from prod namespace (AND)</span>
+<span class="k">- from</span><span class="v">:</span>
+    <span class="k">- namespaceSelector</span><span class="v">:</span>
+        <span class="k">matchLabels</span><span class="v">:</span>
+          <span class="k">env</span><span class="v">: prod</span>
+      <span class="k">podSelector</span><span class="v">:</span>
+        <span class="k">matchLabels</span><span class="v">:</span>
+          <span class="k">app</span><span class="v">: frontend</span></code></pre>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="color:var(--accent4)">❌ Mistake 3: Policies on Pods That Don't Have Matching Labels</div>
+        <p style="font-size:13px;color:var(--text2)">A policy targeting <code>app=backend</code> does nothing if your pods are labeled <code>app=backend-service</code> (even a typo breaks it). Always double-check label alignment.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="color:var(--accent4)">❌ Mistake 4: Using flannel CNI (No Enforcement)</div>
+        <p style="font-size:13px;color:var(--text2)">Your policies exist in etcd, Kubernetes accepts them — but flannel silently ignores them. All traffic flows as if the policy doesn't exist. This is dangerous because you <em>think</em> you're protected.</p>
+        <div class="callout warn" style="margin-top:8px;font-size:13px">
+          <strong>Fix:</strong> Verify your CNI: <code>kubectl get pods -n kube-system | grep cni</code>. If it's flannel, switch to Calico or Cilium.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="color:var(--accent4)">❌ Mistake 5: Not Labeling Namespaces</div>
+        <p style="font-size:13px;color:var(--text2)">Using <code>namespaceSelector</code> but forgetting to add labels to the target namespace. The policy won't match anything.</p>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># Always label namespaces you plan to use in policies</span>
+kubectl label namespace monitoring team=platform env=prod
+kubectl label namespace ecommerce app=ecommerce env=prod</code></pre>
+      </div>
+
+      <h2>Essential Debugging Commands</h2>
+
+      <ul class="cmd-list">
+        <li>
+          <code>kubectl get networkpolicy -n &lt;namespace&gt; -o wide</code>
+          <div class="cmd-desc">List all policies in a namespace with their pod selectors</div>
+        </li>
+        <li>
+          <code>kubectl describe networkpolicy &lt;name&gt; -n &lt;namespace&gt;</code>
+          <div class="cmd-desc">Full details of a policy — shows resolved rules and pod selector matches</div>
+        </li>
+        <li>
+          <code>kubectl get pods -n &lt;ns&gt; --show-labels</code>
+          <div class="cmd-desc">Verify pod labels match what your policy is targeting</div>
+        </li>
+        <li>
+          <code>kubectl exec &lt;pod&gt; -n &lt;ns&gt; -- nc -zv &lt;target-ip&gt; &lt;port&gt;</code>
+          <div class="cmd-desc">Test TCP connectivity from inside a pod. <code>-z</code> = zero-I/O (port scan), <code>-v</code> = verbose</div>
+        </li>
+        <li>
+          <code>kubectl run debug --image=nicolaka/netshoot --rm -it -n &lt;ns&gt; -- bash</code>
+          <div class="cmd-desc">Launch an ephemeral debug pod with full networking tools (curl, nc, dig, nmap, tcpdump)</div>
+        </li>
+        <li>
+          <code>kubectl exec &lt;pod&gt; -- nslookup kubernetes.default</code>
+          <div class="cmd-desc">Test DNS resolution is working. If this fails, your egress DNS policy is broken</div>
+        </li>
+        <li>
+          <code>kubectl get pods -n kube-system -l k8s-app=calico-node</code>
+          <div class="cmd-desc">Verify Calico agent pods are running on all nodes</div>
+        </li>
+        <li>
+          <code>calicoctl get networkpolicy --all-namespaces -o yaml</code>
+          <div class="cmd-desc">View policies from Calico's perspective (may differ from kubectl view)</div>
+        </li>
+        <li>
+          <code>kubectl get events -n &lt;ns&gt; --sort-by='.lastTimestamp'</code>
+          <div class="cmd-desc">Check for any policy-related warning events</div>
+        </li>
+      </ul>
+
+      <h2>Systematic Debugging Workflow</h2>
+      <ul class="steps">
+        <li><span class="step-num">1.</span><span>Check if a NetworkPolicy exists: <code>kubectl get netpol -n &lt;ns&gt;</code>. If none exist but traffic is blocked — look at your CNI configuration.</span></li>
+        <li><span class="step-num">2.</span><span>Verify pod labels match: <code>kubectl get pod &lt;name&gt; -o jsonpath='{.metadata.labels}'</code>. Compare to policy's <code>podSelector</code>.</span></li>
+        <li><span class="step-num">3.</span><span>Check namespace labels: <code>kubectl get ns &lt;name&gt; --show-labels</code>. Cross-namespace policies require correct namespace labels.</span></li>
+        <li><span class="step-num">4.</span><span>Test connectivity with netshoot: <code>nc -zv &lt;ip&gt; &lt;port&gt;</code> from both source and destination.</span></li>
+        <li><span class="step-num">5.</span><span>Check CNI logs: <code>kubectl logs -n kube-system -l k8s-app=calico-node --tail=50</code> for policy application errors.</span></li>
+        <li><span class="step-num">6.</span><span>Temporarily remove the policy and re-test. If traffic flows — the policy is blocking. Re-add and refine rules.</span></li>
+      </ul>
+    </div>
+
+    <!-- ============================================================
+         SECTION 6: BEST PRACTICES
+    ============================================================ -->
+    <div id="section-bestpractices" class="section">
+      <h1>Best Practices</h1>
+      <p class="page-desc">Production-level recommendations for secure, maintainable Network Policy configurations.</p>
+
+      <h2>The Zero-Trust Policy Template</h2>
+      <p>For every namespace you create in production, apply this pattern immediately — before deploying any workloads:</p>
+      <ol style="padding-left:20px;color:#c9d1d9;line-height:2">
+        <li>Apply <code>default-deny-all</code> (blocks all ingress and egress)</li>
+        <li>Allow DNS egress (UDP/TCP 53 to kube-system)</li>
+        <li>Allow health check probes if needed (kubelet → pod)</li>
+        <li>Explicitly allow each required service-to-service path</li>
+        <li>Allow monitoring namespace to scrape metrics</li>
+      </ol>
+
+      <h2>Naming & Labeling Strategy</h2>
+
+      <h3>Policy Naming Convention</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># Pattern: &lt;direction&gt;-&lt;source/target&gt;-&lt;what&gt;</span>
+<span class="c"># or:      &lt;service&gt;-&lt;direction&gt;-&lt;description&gt;</span>
+
+default-deny-all              <span class="c"># baseline lockdown</span>
+frontend-egress-to-backend    <span class="c"># who sends where</span>
+backend-ingress-from-frontend <span class="c"># who receives from whom</span>
+postgres-allow-backend-only   <span class="c"># guard for database</span>
+allow-monitoring-scrape       <span class="c"># cross-namespace access</span>
+allow-ingress-controller      <span class="c"># external entry point</span></code></pre>
+
+      <h3>Recommended Pod Label Schema</h3>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="k">labels</span><span class="v">:</span>
+  <span class="k">app</span><span class="v">: backend</span>           <span class="c"># service name (used in policies)</span>
+  <span class="k">tier</span><span class="v">: api</span>              <span class="c"># architectural tier: web/api/database/cache</span>
+  <span class="k">component</span><span class="v">: rest</span>        <span class="c"># implementation type</span>
+  <span class="k">version</span><span class="v">: v2</span>            <span class="c"># useful for canary policies</span>
+  <span class="k">part-of</span><span class="v">: ecommerce</span>     <span class="c"># parent application</span>
+  <span class="k">managed-by</span><span class="v">: helm</span>       <span class="c"># deployment tool</span></code></pre>
+
+      <div class="callout warn">
+        <strong>Never use unstable labels in policies.</strong> Labels like <code>pod-template-hash</code> or release-specific labels change on every deploy. Only use stable, intent-based labels like <code>app=</code> and <code>tier=</code> in your NetworkPolicy selectors.
+      </div>
+
+      <h2>Production Security Tips</h2>
+      <ul class="checklist">
+        <li>Start with <code>default-deny-all</code> in every namespace — never add policies to an open namespace</li>
+        <li>Use <code>policyTypes: [Ingress, Egress]</code> explicitly — don't rely on implicit behavior</li>
+        <li>Always test policies in a staging namespace before applying to production</li>
+        <li>Never allow port 0 (all ports) unless absolutely necessary</li>
+        <li>Separate the database into its own namespace for stronger isolation boundaries</li>
+        <li>Use Cilium's NetworkPolicy Editor (editor.cilium.io) to visually design and validate policies</li>
+        <li>Store all NetworkPolicy YAMLs in Git — treat them as Infrastructure as Code</li>
+        <li>Use Kyverno or OPA/Gatekeeper to enforce that every new namespace gets a default-deny policy</li>
+        <li class="warn">Regularly audit: <code>kubectl get netpol --all-namespaces</code> to ensure no namespaces are unprotected</li>
+        <li class="bad">Don't disable NetworkPolicies "temporarily" in production — create narrow allow-rules instead</li>
+        <li class="bad">Don't use <code>podSelector: {}</code> in ingress rules (allows all pods) without understanding the blast radius</li>
+      </ul>
+
+      <h2>Policy Organization in Git</h2>
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>k8s/
+  network-policies/
+    base/
+      default-deny-all.yaml          <span class="c"># applied to every ns</span>
+      allow-dns-egress.yaml          <span class="c"># applied to every ns</span>
+      allow-monitoring-scrape.yaml   <span class="c"># prometheus access</span>
+    ecommerce/
+      frontend-policy.yaml
+      backend-policy.yaml
+      postgres-policy.yaml
+      redis-policy.yaml
+    monitoring/
+      prometheus-policy.yaml</code></pre>
+    </div>
+
+    <!-- ============================================================
+         SECTION 7: ADVANCED
+    ============================================================ -->
+    <div id="section-advanced" class="section">
+      <h1>Advanced Topics</h1>
+      <p class="page-desc">Namespace isolation patterns, DNS policies, service mesh integration, and CNI-specific extensions.</p>
+
+      <h2>Advanced Namespace Isolation</h2>
+      <p>For large organizations or multi-tenant clusters, per-namespace isolation is crucial. This pattern creates a "namespace jail":</p>
+
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># Apply once per namespace — creates a hard boundary</span>
+<span class="s">apiVersion</span><span class="k">: networking.k8s.io/v1</span>
+<span class="s">kind</span><span class="k">: NetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: namespace-isolation</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">podSelector</span><span class="v">: {}</span>
+  <span class="k">policyTypes</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Ingress</span>
+    <span class="k">-</span><span class="v"> Egress</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="c"># Allow from same namespace</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">: {}</span>
+    <span class="c"># Allow from monitoring namespace</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- namespaceSelector</span><span class="v">:</span>
+            <span class="k">matchLabels</span><span class="v">:</span>
+              <span class="k">purpose</span><span class="v">: monitoring</span>
+  <span class="k">egress</span><span class="v">:</span>
+    <span class="c"># DNS</span>
+    <span class="k">- ports</span><span class="v">:</span>
+        <span class="k">- port</span><span class="n">: 53</span>
+          <span class="k">protocol</span><span class="v">: UDP</span>
+    <span class="c"># Allow to same namespace only</span>
+    <span class="k">- to</span><span class="v">:</span>
+        <span class="k">- podSelector</span><span class="v">: {}</span></code></pre>
+
+      <h2>DNS Policies</h2>
+      <p>Kubernetes' internal DNS (<code>CoreDNS</code>) runs in <code>kube-system</code>. Egress policies that lock down DNS break service discovery. There are three approaches:</p>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title" style="color:var(--accent)">Approach 1: Port 53 to kube-system</div>
+          <pre style="font-size:11px;margin:8px 0 0;padding:10px"><code><span class="k">egress</span><span class="v">:</span>
+  <span class="k">- to</span><span class="v">:</span>
+      <span class="k">- namespaceSelector</span><span class="v">:</span>
+          <span class="k">matchLabels</span><span class="v">:</span>
+            <span class="k">kubernetes.io/metadata.name</span><span class="v">: kube-system</span>
+    <span class="k">ports</span><span class="v">:</span>
+      <span class="k">- port</span><span class="n">: 53</span>
+        <span class="k">protocol</span><span class="v">: UDP</span></code></pre>
+          <p style="font-size:12px;color:var(--accent2);margin-top:6px">✓ Most specific, recommended</p>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent3)">Approach 2: Port 53 everywhere</div>
+          <pre style="font-size:11px;margin:8px 0 0;padding:10px"><code><span class="k">egress</span><span class="v">:</span>
+  <span class="k">- ports</span><span class="v">:</span>
+      <span class="k">- port</span><span class="n">: 53</span>
+        <span class="k">protocol</span><span class="v">: UDP</span>
+      <span class="k">- port</span><span class="n">: 53</span>
+        <span class="k">protocol</span><span class="v">: TCP</span></code></pre>
+          <p style="font-size:12px;color:var(--accent3);margin-top:6px">⚠ Simpler but less restrictive</p>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <strong>Pod DNS policy (<code>dnsPolicy</code> field)</strong> is separate from NetworkPolicy — <code>dnsPolicy: ClusterFirst</code> (the default) means the pod uses CoreDNS. <code>dnsPolicy: None</code> lets you specify custom DNS servers. This is a pod-level setting, not network-level.
+      </div>
+
+      <h2>Calico: GlobalNetworkPolicy</h2>
+      <p>Calico extends Kubernetes NetworkPolicy with a cluster-wide <code>GlobalNetworkPolicy</code> that spans all namespaces — useful for organization-wide security baseline rules.</p>
+
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># Calico-specific resource — not native Kubernetes</span>
+<span class="s">apiVersion</span><span class="k">: projectcalico.org/v3</span>
+<span class="s">kind</span><span class="k">: GlobalNetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: deny-all-external-egress</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">order</span><span class="n">: 1000</span>               <span class="c"># lower number = higher priority</span>
+  <span class="k">selector</span><span class="v">: all()</span>           <span class="c"># applies to ALL pods in ALL namespaces</span>
+  <span class="k">types</span><span class="v">:</span>
+    <span class="k">-</span><span class="v"> Egress</span>
+  <span class="k">egress</span><span class="v">:</span>
+    <span class="c"># Allow internal cluster traffic</span>
+    <span class="k">- action</span><span class="v">: Allow</span>
+      <span class="k">destination</span><span class="v">:</span>
+        <span class="k">nets</span><span class="v">:</span>
+          <span class="k">-</span><span class="v"> 10.0.0.0/8</span>
+    <span class="c"># Deny everything else (internet)</span>
+    <span class="k">- action</span><span class="v">: Deny</span></code></pre>
+
+      <h2>Cilium: Layer 7 HTTP Policies</h2>
+      <p>Cilium's eBPF-based implementation can enforce policies at the HTTP/gRPC level — beyond IP/port to actual HTTP paths and methods.</p>
+
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># Cilium NetworkPolicy with L7 HTTP rules</span>
+<span class="s">apiVersion</span><span class="k">: cilium.io/v2</span>
+<span class="s">kind</span><span class="k">: CiliumNetworkPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: allow-only-get-products</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">endpointSelector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: backend</span>
+  <span class="k">ingress</span><span class="v">:</span>
+    <span class="k">- fromEndpoints</span><span class="v">:</span>
+        <span class="k">- matchLabels</span><span class="v">:</span>
+            <span class="k">app</span><span class="v">: frontend</span>
+      <span class="k">toPorts</span><span class="v">:</span>
+        <span class="k">- ports</span><span class="v">:</span>
+            <span class="k">- port</span><span class="v">: "8080"</span>
+              <span class="k">protocol</span><span class="v">: TCP</span>
+          <span class="k">rules</span><span class="v">:</span>
+            <span class="k">http</span><span class="v">:</span>
+              <span class="c"># Only allow GET /api/products — block all other paths/methods</span>
+              <span class="k">- method</span><span class="v">: GET</span>
+                <span class="k">path</span><span class="v">: /api/products</span>
+              <span class="k">- method</span><span class="v">: GET</span>
+                <span class="k">path</span><span class="v">: /api/products/.*</span>  <span class="c"># regex supported</span></code></pre>
+
+      <div class="callout success">
+        <strong>This is powerful</strong> — Cilium can block <code>POST /api/admin</code> even from the frontend pod. Standard NetworkPolicy can only control at IP/port level. This is L7 micro-segmentation.
+      </div>
+
+      <h2>Service Mesh Integration (Istio + NetworkPolicy)</h2>
+      <p>A service mesh like Istio operates at the application layer (L7) and handles mTLS, retries, and traffic shaping. It complements (but doesn't replace) NetworkPolicy:</p>
+
+      <table>
+        <tr><th>Feature</th><th>NetworkPolicy (L3/L4)</th><th>Istio AuthorizationPolicy (L7)</th></tr>
+        <tr><td>IP/Port filtering</td><td>✅ Yes</td><td>⚠ Partial</td></tr>
+        <tr><td>HTTP path/method filtering</td><td>❌ No</td><td>✅ Yes</td></tr>
+        <tr><td>mTLS encryption</td><td>❌ No</td><td>✅ Yes</td></tr>
+        <tr><td>Header-based routing</td><td>❌ No</td><td>✅ Yes</td></tr>
+        <tr><td>Enforced by</td><td>CNI plugin (kernel)</td><td>Envoy sidecar (app layer)</td></tr>
+        <tr><td>Overhead</td><td>Minimal</td><td>Higher (sidecar per pod)</td></tr>
+      </table>
+
+      <div class="callout info">
+        <strong>Best practice with Istio:</strong> Still use NetworkPolicy as a defence-in-depth layer. Lock down IP/ports with NetworkPolicy, then use Istio's <code>AuthorizationPolicy</code> for fine-grained L7 control like JWT validation, HTTP path matching, and service identity-based authorization.
+      </div>
+
+      <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="c"># Istio AuthorizationPolicy — works alongside NetworkPolicy</span>
+<span class="s">apiVersion</span><span class="k">: security.istio.io/v1beta1</span>
+<span class="s">kind</span><span class="k">: AuthorizationPolicy</span>
+<span class="s">metadata</span><span class="k">:</span>
+  <span class="k">name</span><span class="v">: backend-authz</span>
+  <span class="k">namespace</span><span class="v">: ecommerce</span>
+<span class="s">spec</span><span class="k">:</span>
+  <span class="k">selector</span><span class="v">:</span>
+    <span class="k">matchLabels</span><span class="v">:</span>
+      <span class="k">app</span><span class="v">: backend</span>
+  <span class="k">action</span><span class="v">: ALLOW</span>
+  <span class="k">rules</span><span class="v">:</span>
+    <span class="k">- from</span><span class="v">:</span>
+        <span class="k">- source</span><span class="v">:</span>
+            <span class="c"># Enforce mTLS identity — not just label-based</span>
+            <span class="k">principals</span><span class="v">:</span>
+              <span class="k">-</span><span class="v"> cluster.local/ns/ecommerce/sa/frontend</span>
+      <span class="k">to</span><span class="v">:</span>
+        <span class="k">- operation</span><span class="v">:</span>
+            <span class="k">methods</span><span class="v">: ["GET", "POST"]</span>
+            <span class="k">paths</span><span class="v">: ["/api/*"]</span></code></pre>
+
+      <h2>Useful Tools & Resources</h2>
+      <ul class="checklist">
+        <li><strong>Cilium Network Policy Editor</strong> — editor.cilium.io — visual policy designer</li>
+        <li><strong>netshoot</strong> — docker.io/nicolaka/netshoot — debug pod with all networking tools</li>
+        <li><strong>kubectl-np-viewer</strong> — plugin to visualize policies in the terminal</li>
+        <li><strong>Hubble</strong> (Cilium) — real-time network flow visibility and policy analysis</li>
+        <li><strong>kube-bench</strong> — checks cluster compliance with CIS benchmarks including network policies</li>
+        <li><strong>Kyverno</strong> — enforce that every namespace must have a deny-all policy</li>
+      </ul>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const text = pre.innerText.replace(/^Copy\n/, '');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.style.background = 'var(--accent2)';
+    btn.style.color = '#0d1117';
+    setTimeout(() => { btn.textContent = 'Copy'; btn.style.background = ''; btn.style.color = ''; }, 2000);
+  });
+}
+
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('progressBar').style.width = (scrolled / total * 100) + '%';
+});
+</script>
+</body>
+</html>

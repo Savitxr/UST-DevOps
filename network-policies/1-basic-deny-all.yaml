@@ -1,0 +1,11 @@
+# ex1-default-deny.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: np
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress  

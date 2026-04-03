@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: backend-allow-payment-api
+  namespace: np
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  policyTypes:
+  - Egress
+  egress:
+    # DNS (always needed)
+    - ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Allow HTTPS to Stripe payment API IP range (example)
+    - to:
+        - ipBlock:
+            cidr: 54.187.174.0/24 # Stripe IP range (example)
+            except:
+              - 54.187.174.64/30   # exclude a specific sub-range
+      ports:
+        - protocol: TCP
+          port: 443
+    # Allow internal cluster traffic
+    - to:
+        - ipBlock:
+            cidr: 10.0.0.0/8   # internal cluster CIDRs
+        

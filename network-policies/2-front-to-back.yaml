@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: front-to-back
+  namespace: np
+spec:
+  podSelector:
+    matchLabels:
+      app: backend  # which pod you are restricting
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: frontend # only pods with this label can incoming traffic allowed
+      ports:
+        - protocol: TCP
+          port: 80  #only on this port
